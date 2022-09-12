@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>25. Статусы</title>
+<title>29. Статусы</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -527,7 +527,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#25-Статусы">25. Статусы</a>
+<li><a href="#29-Статусы">29. Статусы</a>
 <ul class="sectlevel2">
 <li><a href="#Статусы-по-валютным-переводам-платёжным-поручениям-и-РСТС">Статусы по валютным переводам, платёжным поручениям и РСТС</a>
 <ul class="sectlevel3">
@@ -559,6 +559,13 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#Статус-исходного-документа">Статус исходного документа</a></li>
 </ul>
 </li>
+<li><a href="#Статусы-по-Ведомости-банковского-контроля">Статусы по Ведомости банковского контроля</a>
+<ul class="sectlevel3">
+<li><a href="#Схема-xml-документа-5">Схема XML-документа</a></li>
+<li><a href="#CONTRACT_REPORTS_STATUS_SCHEMA">Описание схемы ответа</a></li>
+<li><a href="#CONTRACT_REPORTS_STATUS_MODEL">Статусы Ведомости банковского контроля</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -566,7 +573,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="25-Статусы">25. Статусы</h2>
+<h2 id="29-Статусы">29. Статусы</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="Статусы-по-валютным-переводам-платёжным-поручениям-и-РСТС">Статусы по валютным переводам, платёжным поручениям и РСТС</h3>
@@ -611,7 +618,7 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Дата и время создания сообщения</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CreDtTm</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (В случае, если часовой пояс не указан или указан отличный от московского, то время будет приведено к UTC +3).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
@@ -825,7 +832,7 @@ PmtInf.CdtTrfTxInf.PmtId.<strong>EndToEndId</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Дата и Время создания сообщения</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GrpHdr.CreDtTm</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (Обязательно указание часового пояса Москвы. В случае, если часовой пояс не указан, то время будет восприниматься по UTC).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (В случае, если часовой пояс не указан или указан отличный от московского, то время будет приведено к UTC +3).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
@@ -1341,7 +1348,7 @@ PmtInf.CdtTrfTxInf.PmtId.<strong>EndToEndId</strong></p></td>
     <span class="tag">&lt;AcctSvcrId&gt;</span>
       <span class="tag">&lt;FinInstnId&gt;</span>
         <span class="tag">&lt;ClrSysMmbId&gt;</span>
-          <span class="tag">&lt;MmbId&gt;</span>005V4Z<span class="tag">&lt;/MmbId&gt;</span>
+          <span class="tag">&lt;MmbId&gt;</span>00753Z<span class="tag">&lt;/MmbId&gt;</span>
         <span class="tag">&lt;/ClrSysMmbId&gt;</span>
         <span class="tag">&lt;Nm&gt;</span>1<span class="tag">&lt;/Nm&gt;</span>
       <span class="tag">&lt;/FinInstnId&gt;</span>
@@ -1352,7 +1359,7 @@ PmtInf.CdtTrfTxInf.PmtId.<strong>EndToEndId</strong></p></td>
       <span class="tag">&lt;LglAdr</span><span class="tag">/&gt;</span>
       <span class="tag">&lt;OrgId&gt;</span>
         <span class="tag">&lt;Othr&gt;</span>
-          <span class="tag">&lt;Id&gt;</span>0178827953<span class="tag">&lt;/Id&gt;</span>
+          <span class="tag">&lt;Id&gt;</span>0664010623<span class="tag">&lt;/Id&gt;</span>
           <span class="tag">&lt;SchmeNm&gt;</span>
             <span class="tag">&lt;Cd&gt;</span>TXID<span class="tag">&lt;/Cd&gt;</span>
           <span class="tag">&lt;/SchmeNm&gt;</span>
@@ -1423,7 +1430,7 @@ PmtInf.CdtTrfTxInf.PmtId.<strong>EndToEndId</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Дата и время создания сообщения</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CreDtTm</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (Обязательно указание часового пояса Москвы. В случае, если часовой пояс не указан, то время будет восприниматься по UTC).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (В случае, если часовой пояс не указан или указан отличный от московского, то время будет приведено к UTC +3).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
@@ -1690,12 +1697,274 @@ PmtInf.CdtTrfTxInf.PmtId.<strong>EndToEndId</strong></p></td>
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Статусы-по-Ведомости-банковского-контроля">Статусы по Ведомости банковского контроля</h3>
+<div class="sect3">
+<h4 id="Схема-xml-документа-5">Схема XML-документа</h4>
+<div class="paragraph">
+<p>auth.027.001.01</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="CONTRACT_REPORTS_STATUS_SCHEMA">Описание схемы ответа</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 34.6534%;">
+<col style="width: 34.6534%;">
+<col style="width: 28.7132%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Описание</th>
+<th class="tableblock halign-left valign-top">XSD</th>
+<th class="tableblock halign-left valign-top">Комментарий<br>
+Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Document.CcyCtrlStsAdvc.<strong>GrpHdr</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Идентификатор сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>MsgId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Дата и время создания сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CreDtTm</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (В случае, если часовой пояс не указан или указан отличный от московского, то время будет приведено к UTC +3).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Число элементов в сообщении</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NbOfItms</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Кол-во блоков ReqOrLttr, каждый из которых соответствует переданному УНК.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SWIFT код банка</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RegnAgt.FinInstnId.<strong>BICFI</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа 'ALFARUMM'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">БИК Банка</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RegnAgt.FinInstnId.ClrSysMmbId.<strong>MmbId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа '44525593'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Document.CcyCtrlStsAdvc.<strong>GrpSts</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Идентификатор исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OrgnlRefs.<strong>OrgnlMsgId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Тип исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OrgnlRefs.<strong>OrgnlMsgNmId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"auth.026.001.01"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Время создания исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OrgnlRefs.<strong>OrgnlCreDtTm</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">БИК банка</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.Id.OrgId.Othr.<strong>Id</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа '044525593'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SWIFT код банка</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RegnAgt.FinInstnId.<strong>BICFI</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа 'ALFARUMM'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Статус исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sts</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">см. таблицу <a href="#CONTRACT_REPORTS_STATUS_MODEL">Статусы Ведомости банковского контроля</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Код причины ошибки в ISO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StsRsn.Rsn.<strong>Cd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Описание причины присвоения статуса сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StsRsn.<strong>AddtlInf</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Document.CcyCtrlStsAdvc.<strong>PackgSts</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Неиспользуемое поле</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PackgId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "undefined"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Статус обработки всего запроса</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sts</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Дублирует значение из GrpSts.Sts. См. таблицу <a href="#CONTRACT_REPORTS_STATUS_MODEL">Статусы Ведомости банковского контроля</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Document.CcyCtrlStsAdvc.PackgSts.<strong>RcrdSts</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Идентификатор ReqOrLttrId элемента в массиве контрактов ReqOrLttr исходного запроса</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>RcrdId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Статус обработки ВБК по УНК соответствующего блока ReqOrLttr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sts</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">См. таблицу <a href="#CONTRACT_REPORTS_STATUS_MODEL">Статусы Ведомости банковского контроля</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Код причины ошибки в ISO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StsRsn.Rsn.<strong>Cd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Описание причины присвоения статуса</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StsRsn.<strong>AddtlInf</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="CONTRACT_REPORTS_STATUS_MODEL">Статусы Ведомости банковского контроля</h4>
+<div class="paragraph">
+<p>Передается в Document.GrpSts.Sts схемы auth.027.001.01</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">№</th>
+<th class="tableblock halign-left valign-top">ISO статус всего запроса</th>
+<th class="tableblock halign-left valign-top">Описание</th>
+<th class="tableblock halign-left valign-top">Комментарий</th>
+<th class="tableblock halign-left valign-top">ISO статус записи с УНК</th>
+<th class="tableblock halign-left valign-top">Комментарий</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RCVD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Получено</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на формирование архива со списком ВБК получен</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RCVD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на формирование файла ВБК принят в получен</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACTC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Технические проверки пройдены, запрос принят в обработку</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос принят в обработку</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACTC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запись УНК принята в обработку</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">PDNG</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Обработка запроса</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">По списку УНК были сформированы файлы ВБК</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RJCT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Не сформирован файл ВБК по УНК, либо при формировании произошла ошибка</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACTC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">По УНК был сформирован файл ВБК</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACPT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Файл ВБК был добавлен в архив</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACPT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос успешно обработан</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">По всем УНК были сформированы файлы ВБК и добавлены в архив для скачивания</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACPT (<strong>каждая запись находится в статусе ACPT</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">По каждой записи с УНК была сформирована ВБК и добавлена в архив</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PART</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос частично обработан</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">В архив добавлен хотя бы один файл ВБК</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACPT/RJCT (<strong>хотя бы одна запись находится в статусе ACPT</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Хотя бы по одной записи с УНК из списка была успешно сформирована ВБК и добавлена в архив</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RJCT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Отклонено</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос не прошел проверку на соответствие схеме/в процессе обработки произошла ошибка/невалидные реквизиты компании</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RJCT (<strong>все записи находятся в статусе RJCT</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">хотя бы один УНК невалиден/снят с учета, либо не принадлежит компании</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-14 14:12:05 +0300
+Last updated 2022-08-30 15:02:36 +0300
 </div>
 </div>
 </body>

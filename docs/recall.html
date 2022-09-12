@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>12. Постановка на учет внешнеторгового контракта (УНК)</title>
+<title>8. Отзыв платежа</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -527,14 +527,16 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#12-Постановка-на-учет-внешнеторгового-контракта-УНК">12. Постановка на учет внешнеторгового контракта (УНК)</a>
+<li><a href="#8-Отзыв-платежа">8. Отзыв платежа</a>
 <ul class="sectlevel2">
 <li><a href="#uri">URI</a></li>
-<li><a href="#xsd-схема">XSD схема</a></li>
-<li><a href="#Алгоритм-определения-продавца-и-покупателя">Алгоритм определения продавца и покупателя</a></li>
+<li><a href="#xml-схема">XML схема</a></li>
 <li><a href="#Описание-схемы">Описание схемы</a></li>
-<li><a href="#Ответ">Ответ</a></li>
-<li><a href="#Коды-ответов">Коды ответов</a></li>
+<li><a href="#Ответ">Ответ</a>
+<ul class="sectlevel3">
+<li><a href="#RECALL_STATUS">Таблица с описанием причины присвоения статусов ACSC и RJCT</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -542,73 +544,67 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="12-Постановка-на-учет-внешнеторгового-контракта-УНК">12. Постановка на учет внешнеторгового контракта (УНК)</h2>
+<h2 id="8-Отзыв-платежа">8. Отзыв платежа</h2>
 <div class="sectionbody">
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Информация для тестирования</div>
+<div class="title">Обратите внимание</div>
 <div class="paragraph">
-<p>Для получения статуса "Исполнен" [ACPT] необходимо корректно составить и подписать запрос
-(пример запроса есть ниже в настоящей документации). Затем необходимо написать на п/я <a href="mailto:h2h@alfabank.ru">h2h@alfabank.ru</a> с просьбой провести операцию,
-поскольку все операции с валютой требуют авторизации.</p>
+<p>После успешного выполнения запроса на отзыв платежа (ответ с HTTP кодом 200) Вы можете выполнить запрос на получение статуса по конкретному платежу.<br></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GET https://grampus-int.alfabank.ru/API/v1/ISO20022/Payments/Transactions/&lt;InstrId&gt;</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Для получения статуса "Отклонен" [RJCT] достаточно, например, некорректно заполнить
-один из реквизитов.</p>
+<p>где &lt;InstrId&gt; - идентификатор платежа.</p>
+</div>
+<div class="paragraph">
+<p>Если платеж не удалось отозвать, то на стороне банка автоматически будет сформировано и отправлено от имени Вашей компании официальное письмо.<br>
+Шаблон письма:<br>
+Тема: Отзыв платежного документа  № <strong>(Номер документа)</strong> от <strong>(Дата документа)</strong>.<br>
+Текст: Прошу отозвать платежный документ № <strong>(Номер документа)</strong> от <strong>(Дата документа)</strong> на сумму <strong>(Сумма)</strong> <strong>(Валюта)</strong>.<br>
+Категория: <strong>"Срочно! Отзыв платежа"</strong></p>
+</div>
+<div class="paragraph">
+<p>В этом случае в ответ на запрос отзыва платежа Вы получите HTTP код 201 и header <strong>Location</strong> c URL на получение статуса по пакету писем.<br>
+Подробнее в разделе <a href="#LETTERS_STATUS">[LETTERS_STATUS]</a>.</p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Важно</div>
+<div class="paragraph">
+<p>Может возникнуть ситуация, когда ранее отправленный платеж находится в процессе выполнения проверок.<br>
+Вам вернется ответ с кодом HTTP 404.<br>
+Если идентификаторы отзываемого платежа заполнены верно - выполните запрос на получение статуса по конкретному платежу.<br>
+Если платеж перешел в статус ACSP "На обработке", выполните повторный запрос на отзыв платежа.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="uri">URI</h3>
 <div class="paragraph">
-<p>POST: /API/v1/ISO20022/Contracts</p>
+<p>PUT: /API/v1/ISO20022/Payments/Recall</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="xsd-схема">XSD схема</h3>
+<h3 id="xml-схема">XML схема</h3>
 <div class="paragraph">
-<p>auth.018.001.01</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Алгоритм-определения-продавца-и-покупателя">Алгоритм определения продавца и покупателя</h3>
-<div class="paragraph">
-<p>Особенностью схемы auth.018 является возможность заполнения данных
-по контрагенту (с кем заключается контракт) в разделе Buyr или Sellr на усмотрение пользователя.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>ИНН резидента (<strong>CtrctRegnReq.GrpHdr.InitgPty.Id.OrgId.Othr.Id</strong>), где SchmeNm.Cd = 'TXID'&#8201;&#8212;&#8201;обязательное поле<br></p>
-</li>
-<li>
-<p>Одно из полей ИНН является обязательным (SchmeNm.Cd = 'TXID'):</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Buyr.PtyId.Id.OrgId.Othr.Id</p>
-</li>
-<li>
-<p>Sellr.PtyId.Id.OrgId.Othr.Id<br></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Если значение ИНН из п.1 равно ИНН из Buyr, то резидент - покупатель. Если из Sellr, то резидент - продавец.</p>
-</li>
-</ol>
+<p>pacs.004.001.11</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Описание-схемы">Описание схемы</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 34.6534%;">
-<col style="width: 34.6534%;">
-<col style="width: 28.7132%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 35%;">
+<col style="width: 35%;">
+<col style="width: 28%;">
 </colgroup>
 <thead>
 <tr>
@@ -622,14 +618,159 @@ table.CodeRay td.code>pre{padding:0}
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Общий путь Document.CtrctRegnReq.<strong>GrpHdr</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Уникальный id сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.<strong>MsgId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Указывается идентификатор сообщения присвоенный во внешней системе.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Дата и Время создания сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.<strong>CreDtTm</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (В случае, если часовой пояс не указан или указан отличный от московского, то время будет приведено к UTC +3).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Количество отзываемых платежей</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.<strong>NbOfTxs</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "<strong>1</strong>"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Метод</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.SttlmInf.<strong>SttlmMtd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "<strong>INDA</strong>"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Название организации</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.SttlmInf.InstgRmbrsmntAgt.FinInstnId.<strong>Nm</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Номер счета</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.SttlmInf.InstgRmbrsmntAgt.FinInstnId.Othr.<strong>Id</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Признак использования счета</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.SttlmInf.InstgRmbrsmntAgt.FinInstnId.Othr.SchmeNm.<strong>Cd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "<strong>ACC</strong>"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ИНН</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.SttlmInf.InstdRmbrsmntAgt.FinInstnId.Othr.<strong>Id</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Признак использования ИНН</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.GrpHdr.SttlmInf.InstdRmbrsmntAgt.FinInstnId.Othr.SchmeNm.<strong>Сd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "<strong>TXID</strong>"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Уникальный id запроса на отзыв</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.<strong>RtrId</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id исходного сообщения платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.OrgnlGrpInf.<strong>OrgnlMsgId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Должно совпадать с полем в Платеже: Document.CstmrCdtTrfInitn.GrpHdr.<strong>MsgId</strong> (схема pain.001.01.06)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Тип исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.OrgnlGrpInf.<strong>OrgnlMsgNmId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "<strong>pain.001.001.06</strong>"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id исходного пакета платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.<strong>OrgnlInstrId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Должно совпадать с полем в Платеже: Document.CstmrCdtTrfInitn.PmtInf.<strong>PmtInfId</strong> (схема pain.001.01.06)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id исходного платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.<strong>OrgnlTxId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Должно совпадать с полем в Платеже: Document.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.PmtId.<strong>InstrId</strong> (схема pain.001.01.06)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сумма отзываемого платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.<strong>RtrdIntrBkSttlmAmt</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Должно совпадать с полем в Платеже: Document.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.<strong>InstdAmt</strong> (схема pain.001.01.06)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Код валюты отзываемого платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.RtrdIntrBkSttlmAmt<strong>@Ccy</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Подпись</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document.PmtRtr.TxInf.SplmtryData.Envlp.<strong>SgntrSt[1..n]</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Ответ">Ответ</h3>
+<div class="paragraph">
+<p>Ответом является XML-документ, соответствующий схеме pain.002.001.06.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 38.6138%;">
+<col style="width: 29.7029%;">
+<col style="width: 29.7033%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">R/O</th>
+<th class="tableblock halign-left valign-top">Описание</th>
+<th class="tableblock halign-left valign-top">Путь</th>
+<th class="tableblock halign-left valign-top">Комментарий</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Document.CstmrPmtStsRpt.<strong>GrpHdr</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Уникальный id сообщения</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>MsgId</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Указывается идентификатор сообщения присвоенный во внешней системе</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
@@ -641,471 +782,165 @@ table.CodeRay td.code>pre{padding:0}
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Количество транзакций в сообщении</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NbOfItms</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Общее число контрактов (секций CtrctRegnOpng) в сообщении</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SWIFT Альфа-Банка</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InitgPty.Id.OrgId.<strong>AnyBIC</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">константа<br>
+"<strong>ALFARUMM</strong>"</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ИНН организации резидента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">InitgPty.Id.OrgId.Othr[1].<strong>Id</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ИНН, по которому определяется организация-инициатор контракта</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">БИК Альфа-Банка</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InitgPty.Id.OrgId.Othr.<strong>Id</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">константа<br>
+"<strong>044525593</strong>"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Document.CstmrPmtStsRpt.<strong>OrgnlGrpInfAndSts</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Признак использования ИНН</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">InitgPty.Id.OrgId.Othr[1].SchmeNm.<strong>Cd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "TXID"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Идентификатор исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OrgnlMsgId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pacs.004.001.11<br>
+Document/CcyCtrlReqOrLttr/GrpHdr/<strong>MsgId</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Номер счета резидента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">InitgPty.Id.OrgId.Othr[2].<strong>Id</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Номер счета, по которому определяется организация-инициатор контракта</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Тип исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OrgnlMsgNmId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">константа<br>
+"<strong>pacs.004.001.11</strong>"</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Признак использования счета</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">InitgPty.Id.OrgId.Othr[2].SchmeNm.<strong>Cd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "ACC"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Общий путь Document.CtrctRegnReq.<strong>CtrctRegn</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Дата и время формирования исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OrgnlCreDtTm</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pacs.004.001.11<br>
+Document/CcyCtrlReqOrLttr/GrpHdr/<strong>CreDtTm</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Уникальный id пакета</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>CtrctRegnId</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Указывается идентификатор группы контрактов</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Статус исходного сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GrpSts</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ACSC</strong> - Запрос выполнен;<br>
+<strong>RJCT</strong> - Запрос не выполнен.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Наименование резидента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.<strong>Nm</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Не более 140 символов</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Код причины присвоения статуса сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StsRsnInf.Rsn.<strong>Cd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NARR</strong> - Описание в поле AddtlInf.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Секция</strong> адрес резидента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.<strong>PstlAdr</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Описание причины присвоения статуса сообщения</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StsRsnInf.<strong>AddtlInf</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#RECALL_STATUS">Таблица с описанием причины присвоения статусов ACSC и RJCT</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Document.CstmrPmtStsRpt.<strong>OrgnlPmtInfAndSts</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Тип адреса</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>AdrTp</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Константа ADDR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Идентификатор пакета отзываемого платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>OrgnlPmtInfId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pacs.004.001.11
+Document.PmtRtr.TxInf.<strong>OrgnlInstrId</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Корпус/строение</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>Dept</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Статус пакета отзываемого платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PmtInfSts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ACSC</strong> - Запрос выполнен;<br>
+<strong>RJCT</strong> - Запрос не выполнен.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Квартира/офис</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>SubDept</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Улица</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>StrtNm</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Идентификатор отзываемого платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TxInfAndSts.<strong>OrgnlInstrId</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pacs.004.001.11<br>
+Document.PmtRtr.TxInf.<strong>OrgnlInstrId</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Номер дома</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>BldgNb</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Статус отзываемого платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TxInfAndSts.<strong>TxSts</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ACSC</strong> - Запрос выполнен;<br>
+<strong>RJCT</strong> - Запрос не выполнен.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Город</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>TwnNm</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Регион</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>DstrctNm</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Щекинский район</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Субъект</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>CtrySubDvsn</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Санкт-Петербург</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Код причины присвоения статуса</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TxInfAndSts.StsRsnInf.Rsn.<strong>Cd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>NARR</strong> - Описание в поле AddtlInf.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Код страны</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>Ctry</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Описание кода причины присвоения статуса</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TxInfAndSts.StsRsnInf.<strong>AddtlInf</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#RECALL_STATUS">Таблица с описанием причины присвоения статусов ACSC и RJCT</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">20</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Полный адрес</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.PstlAdr.<strong>AdrLine</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Максимум 70 символов</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">21</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ИНН организации резидента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.Id.OrgId.Othr.<strong>Id</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ИНН, по которому определяется организация-инициатор контракта</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Признак использования ИНН</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RcvgPty.Id.OrgId.Othr[1].SchmeNm.<strong>Cd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "TXID"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">23</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Код страны резидента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.PtyId.<strong>CtryOfRes</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RU</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ОГРН</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.LglOrg.<strong>Id</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Дата регистрации ОГРН</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.LglOrg.<strong>RegnDt</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">26</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">КПП</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RptgPty.TaxPty.<strong>TaxTp</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">27</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Код клиринговой системы</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RegnAgt.FinInstnId.ClrSysMmbId.ClrSysId.<strong>Cd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Константа "RUCBC"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">28</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">БИК банка/отделения обслуживающего счет</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RegnAgt.FinInstnId.ClrSysMmbId.<strong>MmbId</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">29</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Наименование банка</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RegnAgt.FinInstnId.<strong>Nm</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Требуется указать филиал банка, где обслуживается организация</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Общий путь Document.CtrctRegnReq.<strong>CtrctRegn</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Уникальный id контракта</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CtrctRegnOpng.<strong>CtrctRegnOpngId</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">31</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Срочность оформления УНК</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CtrctRegnOpng.<strong>Prty</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HIGH - в течение дня, NORM - в течение 3 дней</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Номер ранее оформленного номера УНК</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CtrctRegnOpng.PrvsRegnId.<strong>Id</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Заполняется только по п.10.2 Инструкции № 181-И (при уступке/переводе долга по контракту с нерезидентом резидентом на другого резидента). Пример: 11111111/3333/4444/1/1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">33</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Код типа контракта/договора</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CtrctRegnOpng.SplmtryData.Envlp.AdditionalData.ContractType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 - Экспорт товаров<br>
- 2 - Импорт товаров<br>
- 3 - Экспорт услуг<br>
- 4 - Импорт услуг<br>
- 9 - Смешанная сделка</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">34</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Вложения к контракту</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CtrctRegnOpng.<strong>Attchmnt</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Описание файлов-вложений к контракту. Подробнее в разделе (Работа с вложенными файлами)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Общий путь Document.CtrctRegnReq.CtrctRegn.CtrctRegnOpng.Ctrct.<strong>Trad</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">35</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Номер контракта</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CtrctDocId.<strong>Id</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">36</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Дата контракта</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CtrctDocId.<strong>DtOfIsse</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">YYYY-MM-DD</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">37</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Сумма контракта</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Amt Ccy</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">38</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ИНН покупателя</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[Buyr Sellr&lt;&gt;InitgPty].PtyId.Id.OrgId.Othr.<strong>Id</strong>, где SchmeNm/Cd=TXID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Обязательно к заполнению, если ИНН равен CtrctRegnReq.GrpHdr.InitgPty.Id.OrgId.Othr.Id, где SchmeNm.Cd = 'TXID'</p>
-<p class="tableblock"><strong>Один из тегов с этим замечанием должен быть обязательно и содержать ИНН клиента</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">39</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ИНН продавца</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[Buyr Sellr&lt;&gt;InitgPty].PtyId.Id.OrgId.Othr.<strong>Id</strong>, где SchmeNm/Cd=TXID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Обязательно к заполнению, если ИНН равен CtrctRegnReq.GrpHdr.InitgPty.Id.OrgId.Othr.Id, где SchmeNm.Cd = 'TXID'</p>
-<p class="tableblock"><strong>Один из тегов с этим замечанием должен быть обязательно и содержать ИНН клиента</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">40</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Код страны контрагента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[Buyr Sellr&lt;&gt;InitgPty].PtyId.<strong>CtryOfRes</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Обязательно к заполнению один из тегов</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">41</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Наименование контрагента</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[Buyr Sellr&lt;&gt;InitgPty].PtyId.<strong>Nm</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">42</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Дата завершения контракта/договора</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>MtrtyDt</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">YYYY-MM-DD</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">43</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Признак пролонгации</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PrlngtnFlg</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Обязательно к заполнению по схеме, на создание УНК не влияет.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">44</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Дата начала обязательств по торговому контракту</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>StartDt</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">YYYY-MM-DD. Обязательно к заполнению по схеме, на создание УНК не влияет.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">45</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Валюта контракта</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>SttlmCcy</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Валюта расчетов должна совпадать с валютой в сумме контракта.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Дата и время присвоения статуса</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TxInfAndSts.<strong>AccptncDtTm</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Если платеж был ранее исполнен, то будет передана дата исполнения платежа.<br>
+В других случаях, будет передана дата запроса на отзыв.</p></td>
 </tr>
 </tbody>
 </table>
-<details>
-<summary><b>Пример: Создание контракта</b></summary>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight nowrap"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="tag">&lt;Document</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:iso:std:iso:20022:tech:xsd:auth.018.001.01</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns:ds</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2000/09/xmldsig#</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
-  <span class="tag">&lt;CtrctRegnReq&gt;</span>
-    <span class="tag">&lt;GrpHdr&gt;</span>
-      <span class="tag">&lt;MsgId&gt;</span>ABC-CRR-20200324_2<span class="tag">&lt;/MsgId&gt;</span>
-      <span class="tag">&lt;CreDtTm&gt;</span>2020-03-23T12:22:10+03:00<span class="tag">&lt;/CreDtTm&gt;</span>
-      <span class="tag">&lt;NbOfItms&gt;</span>1<span class="tag">&lt;/NbOfItms&gt;</span>
-      <span class="tag">&lt;InitgPty&gt;</span>
-        <span class="tag">&lt;Id&gt;</span>
-          <span class="tag">&lt;OrgId&gt;</span>
-            <span class="tag">&lt;Othr&gt;</span>
-              <span class="tag">&lt;Id&gt;</span>40702810200000000083<span class="tag">&lt;/Id&gt;</span>
-              <span class="tag">&lt;SchmeNm&gt;</span>
-                <span class="tag">&lt;Cd&gt;</span>ACC<span class="tag">&lt;/Cd&gt;</span>
-              <span class="tag">&lt;/SchmeNm&gt;</span>
-            <span class="tag">&lt;/Othr&gt;</span>
-            <span class="tag">&lt;Othr&gt;</span>
-              <span class="tag">&lt;Id&gt;</span>7013602245<span class="tag">&lt;/Id&gt;</span>
-              <span class="tag">&lt;SchmeNm&gt;</span>
-                <span class="tag">&lt;Cd&gt;</span>TXID<span class="tag">&lt;/Cd&gt;</span>
-              <span class="tag">&lt;/SchmeNm&gt;</span>
-            <span class="tag">&lt;/Othr&gt;</span>
-          <span class="tag">&lt;/OrgId&gt;</span>
-        <span class="tag">&lt;/Id&gt;</span>
-      <span class="tag">&lt;/InitgPty&gt;</span>
-    <span class="tag">&lt;/GrpHdr&gt;</span>
-    <span class="tag">&lt;CtrctRegn&gt;</span>
-      <span class="tag">&lt;CtrctRegnId&gt;</span>ABC-CRR-20200324-04451111<span class="tag">&lt;/CtrctRegnId&gt;</span>
-      <span class="tag">&lt;RptgPty&gt;</span>
-        <span class="tag">&lt;PtyId&gt;</span>
-          <span class="tag">&lt;Nm&gt;</span>ООО &quot;Тест Альфа-Линк&quot;<span class="tag">&lt;/Nm&gt;</span>
-          <span class="tag">&lt;PstlAdr&gt;</span>
-            <span class="tag">&lt;Dept&gt;</span>1<span class="tag">&lt;/Dept&gt;</span>
-            <span class="tag">&lt;SubDept&gt;</span>11<span class="tag">&lt;/SubDept&gt;</span>
-            <span class="tag">&lt;StrtNm&gt;</span>Уличная<span class="tag">&lt;/StrtNm&gt;</span>
-            <span class="tag">&lt;TwnNm&gt;</span>Городской<span class="tag">&lt;/TwnNm&gt;</span>
-            <span class="tag">&lt;CtrySubDvsn&gt;</span>Московская область<span class="tag">&lt;/CtrySubDvsn&gt;</span>
-          <span class="tag">&lt;/PstlAdr&gt;</span>
-          <span class="tag">&lt;Id&gt;</span>
-            <span class="tag">&lt;OrgId&gt;</span>
-              <span class="tag">&lt;Othr&gt;</span>
-                <span class="tag">&lt;Id&gt;</span>7013602245<span class="tag">&lt;/Id&gt;</span>
-                <span class="tag">&lt;SchmeNm&gt;</span>
-                  <span class="tag">&lt;Cd&gt;</span>TXID<span class="tag">&lt;/Cd&gt;</span>
-                <span class="tag">&lt;/SchmeNm&gt;</span>
-              <span class="tag">&lt;/Othr&gt;</span>
-            <span class="tag">&lt;/OrgId&gt;</span>
-          <span class="tag">&lt;/Id&gt;</span>
-          <span class="tag">&lt;CtryOfRes&gt;</span>RU<span class="tag">&lt;/CtryOfRes&gt;</span>
-        <span class="tag">&lt;/PtyId&gt;</span>
-        <span class="tag">&lt;LglOrg&gt;</span>
-          <span class="tag">&lt;Id&gt;</span>10000000321<span class="tag">&lt;/Id&gt;</span>
-          <span class="tag">&lt;RegnDt&gt;</span>2015-01-01<span class="tag">&lt;/RegnDt&gt;</span>
-        <span class="tag">&lt;/LglOrg&gt;</span>
-        <span class="tag">&lt;TaxPty&gt;</span>
-          <span class="tag">&lt;TaxTp&gt;</span>123000009<span class="tag">&lt;/TaxTp&gt;</span>
-        <span class="tag">&lt;/TaxPty&gt;</span>
-      <span class="tag">&lt;/RptgPty&gt;</span>
-      <span class="tag">&lt;RegnAgt&gt;</span>
-        <span class="tag">&lt;FinInstnId&gt;</span>
-          <span class="tag">&lt;ClrSysMmbId&gt;</span>
-            <span class="tag">&lt;ClrSysId&gt;</span>
-              <span class="tag">&lt;Cd&gt;</span>RUCBC<span class="tag">&lt;/Cd&gt;</span>
-            <span class="tag">&lt;/ClrSysId&gt;</span>
-            <span class="tag">&lt;MmbId&gt;</span>044525593<span class="tag">&lt;/MmbId&gt;</span>
-          <span class="tag">&lt;/ClrSysMmbId&gt;</span>
-          <span class="tag">&lt;Nm&gt;</span>АО Альфа-Банкк<span class="tag">&lt;/Nm&gt;</span>
-        <span class="tag">&lt;/FinInstnId&gt;</span>
-      <span class="tag">&lt;/RegnAgt&gt;</span>
-      <span class="tag">&lt;CtrctRegnOpng&gt;</span>
-        <span class="tag">&lt;CtrctRegnOpngId&gt;</span>ABC-CRR-20200324-044511111-02<span class="tag">&lt;/CtrctRegnOpngId&gt;</span>
-        <span class="tag">&lt;Prty&gt;</span>HIGH<span class="tag">&lt;/Prty&gt;</span>
-        <span class="tag">&lt;Ctrct&gt;</span>
-          <span class="tag">&lt;Trad&gt;</span>
-            <span class="tag">&lt;CtrctDocId&gt;</span>
-              <span class="tag">&lt;Id&gt;</span>23032020<span class="tag">&lt;/Id&gt;</span>
-              <span class="tag">&lt;DtOfIsse&gt;</span>2020-03-08<span class="tag">&lt;/DtOfIsse&gt;</span>
-            <span class="tag">&lt;/CtrctDocId&gt;</span>
-            <span class="tag">&lt;Amt</span> <span class="attribute-name">Ccy</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">USD</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>1400000.00<span class="tag">&lt;/Amt&gt;</span>
-            <span class="tag">&lt;Buyr&gt;</span>
-              <span class="tag">&lt;PtyId&gt;</span>
-                <span class="tag">&lt;Id&gt;</span>
-                  <span class="tag">&lt;OrgId&gt;</span>
-                    <span class="tag">&lt;Othr&gt;</span>
-                      <span class="tag">&lt;Id&gt;</span>7013602245<span class="tag">&lt;/Id&gt;</span>
-                      <span class="tag">&lt;SchmeNm&gt;</span>
-                        <span class="tag">&lt;Cd&gt;</span>TXID<span class="tag">&lt;/Cd&gt;</span>
-                      <span class="tag">&lt;/SchmeNm&gt;</span>
-                    <span class="tag">&lt;/Othr&gt;</span>
-                  <span class="tag">&lt;/OrgId&gt;</span>
-                <span class="tag">&lt;/Id&gt;</span>
-                <span class="tag">&lt;CtryOfRes&gt;</span>RU<span class="tag">&lt;/CtryOfRes&gt;</span>
-              <span class="tag">&lt;/PtyId&gt;</span>
-            <span class="tag">&lt;/Buyr&gt;</span>
-            <span class="tag">&lt;Sellr&gt;</span>
-              <span class="tag">&lt;PtyId&gt;</span>
-                <span class="tag">&lt;Nm&gt;</span>ООО Альфа-Линк корпорашн<span class="tag">&lt;/Nm&gt;</span>
-                <span class="tag">&lt;CtryOfRes&gt;</span>KZ<span class="tag">&lt;/CtryOfRes&gt;</span>
-              <span class="tag">&lt;/PtyId&gt;</span>
-            <span class="tag">&lt;/Sellr&gt;</span>
-            <span class="tag">&lt;MtrtyDt&gt;</span>2021-07-04<span class="tag">&lt;/MtrtyDt&gt;</span>
-            <span class="tag">&lt;PrlngtnFlg&gt;</span>false<span class="tag">&lt;/PrlngtnFlg&gt;</span>
-            <span class="tag">&lt;StartDt&gt;</span>2099-02-01<span class="tag">&lt;/StartDt&gt;</span>
-            <span class="tag">&lt;SttlmCcy&gt;</span>USD<span class="tag">&lt;/SttlmCcy&gt;</span>
-          <span class="tag">&lt;/Trad&gt;</span>
-        <span class="tag">&lt;/Ctrct&gt;</span>
-        <span class="tag">&lt;PrvsRegnId&gt;</span>
-          <span class="tag">&lt;Id&gt;</span>11111111/3333/4444/1/1<span class="tag">&lt;/Id&gt;</span>
-        <span class="tag">&lt;/PrvsRegnId&gt;</span>
-        <span class="tag">&lt;SplmtryData&gt;</span>
-          <span class="tag">&lt;Envlp&gt;</span>
-            <span class="tag">&lt;AdditionalData&gt;</span>
-              <span class="tag">&lt;ContractType&gt;</span>3<span class="tag">&lt;/ContractType&gt;</span>
-            <span class="tag">&lt;/AdditionalData&gt;</span>
-          <span class="tag">&lt;/Envlp&gt;</span>
-        <span class="tag">&lt;/SplmtryData&gt;</span>
-      <span class="tag">&lt;/CtrctRegnOpng&gt;</span>
-    <span class="tag">&lt;/CtrctRegn&gt;</span>
-    <span class="tag">&lt;SplmtryData&gt;</span>
-      <span class="tag">&lt;Envlp&gt;</span>
-        <span class="tag">&lt;SgntrSt&gt;</span>
-        <span class="tag">&lt;/SgntrSt&gt;</span>
-      <span class="tag">&lt;/Envlp&gt;</span>
-    <span class="tag">&lt;/SplmtryData&gt;</span>
-  <span class="tag">&lt;/CtrctRegnReq&gt;</span>
-<span class="tag">&lt;/Document&gt;</span></code></pre>
-</div>
-</div>
-</details>
+<div class="sect3">
+<h4 id="RECALL_STATUS">Таблица с описанием причины присвоения статусов ACSC и RJCT</h4>
 <table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Статусы</th>
+<th class="tableblock halign-left valign-top">HTTP код</th>
+<th class="tableblock halign-left valign-top">Описание причины присвоения статуса</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACSC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на отзыв платежа выполнен: платеж отозван</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACSC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на отзыв платежа выполнен: идентификатор официального письма в банк указан в header Location</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RJCT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">208</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на отзыв платежа не выполнен: платёж ранее был отклонён</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RJCT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Платёж не найден! Проверьте идентификатор(ы) отзываемого платежа</p></td>
+</tr>
+</tbody>
 </table>
-</div>
-<div class="sect2">
-<h3 id="Ответ">Ответ</h3>
-<div class="paragraph">
-<p>Ответ приходит по схеме:</p>
-</div>
-<div class="paragraph">
-<p>auth.027.001.01</p>
-</div>
-<div class="paragraph">
-<p>Структура ответа описана в разделе <a href="#STS_AUTH">[STS_AUTH]</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Коды-ответов">Коды ответов</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 10%;">
@@ -1125,8 +960,26 @@ table.CodeRay td.code>pre{padding:0}
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос принят без ошибок.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на отзыв платежа выполнен: платёж отозван</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Платеж отозван автоматически</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Created</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на отзыв платежа выполнен: идентификатор официального письма в банк указан в header Location</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Для отзыва платежа было отправлено письмо. В header <strong>Location</strong> сформирован URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">208</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Already Reported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Запрос на отзыв платежа не выполнен: платёж ранее был отклонён</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Платёж ранее был отклонён</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Платёж не найден! Проверьте идентификатор(ы) отзываемого платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Платеж по вашим данным не найден. Проверьте идентификатор(ы) исходного сообщения.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
@@ -1156,7 +1009,7 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User does not have permission</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Нет прав на выполнение запроса</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Нет прав на выполнения операции</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">406</p></td>
@@ -1169,6 +1022,12 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Certificate is not valid</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Сертификат подписи невалидный</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signer&#8217;s warrant is expired</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность подписанта истекла</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
@@ -1231,12 +1090,6 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">Внутренняя ошибка приложения</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MsgId is not unique</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Id запроса неуникальный</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">XML does not match schema</p></td>
@@ -1244,13 +1097,206 @@ table.CodeRay td.code>pre{padding:0}
 </tr>
 </tbody>
 </table>
+<details>
+<summary><b>Пример запроса на отзыв платежа</b></summary>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="tag">&lt;Document</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:iso:std:iso:20022:tech:xsd:pacs.004.001.11</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;PmtRtr&gt;</span>
+    <span class="tag">&lt;GrpHdr&gt;</span>
+        <span class="tag">&lt;MsgId&gt;</span>db810eeabf0b43a890f3b9943f2ce7bf<span class="tag">&lt;/MsgId&gt;</span>
+        <span class="tag">&lt;CreDtTm&gt;</span>2022-07-11T10:12:12<span class="tag">&lt;/CreDtTm&gt;</span>
+        <span class="tag">&lt;NbOfTxs&gt;</span>1<span class="tag">&lt;/NbOfTxs&gt;</span>
+        <span class="tag">&lt;SttlmInf&gt;</span>
+            <span class="tag">&lt;SttlmMtd&gt;</span>INDA<span class="tag">&lt;/SttlmMtd&gt;</span>
+            <span class="tag">&lt;InstgRmbrsmntAgt&gt;</span>
+                <span class="tag">&lt;FinInstnId&gt;</span>
+                    <span class="tag">&lt;Nm&gt;</span>ООО &quot;Тест Альфа-Линк&quot;<span class="tag">&lt;/Nm&gt;</span>
+                    <span class="tag">&lt;Othr&gt;</span>
+                        <span class="tag">&lt;Id&gt;</span>40702810200000000083<span class="tag">&lt;/Id&gt;</span>
+                        <span class="tag">&lt;SchmeNm&gt;</span>
+                            <span class="tag">&lt;Cd&gt;</span>ACC<span class="tag">&lt;/Cd&gt;</span>
+                        <span class="tag">&lt;/SchmeNm&gt;</span>
+                    <span class="tag">&lt;/Othr&gt;</span>
+                <span class="tag">&lt;/FinInstnId&gt;</span>
+            <span class="tag">&lt;/InstgRmbrsmntAgt&gt;</span>
+            <span class="tag">&lt;InstdRmbrsmntAgt&gt;</span>
+                <span class="tag">&lt;FinInstnId&gt;</span>
+                    <span class="tag">&lt;Othr&gt;</span>
+                        <span class="tag">&lt;Id&gt;</span>7013602245<span class="tag">&lt;/Id&gt;</span>
+                        <span class="tag">&lt;SchmeNm&gt;</span>
+                            <span class="tag">&lt;Cd&gt;</span>TXID<span class="tag">&lt;/Cd&gt;</span>
+                        <span class="tag">&lt;/SchmeNm&gt;</span>
+                    <span class="tag">&lt;/Othr&gt;</span>
+                <span class="tag">&lt;/FinInstnId&gt;</span>
+            <span class="tag">&lt;/InstdRmbrsmntAgt&gt;</span>
+        <span class="tag">&lt;/SttlmInf&gt;</span>
+    <span class="tag">&lt;/GrpHdr&gt;</span>
+    <span class="tag">&lt;TxInf&gt;</span>
+        <span class="tag">&lt;RtrId&gt;</span>TEST_ID_2022-07-13-150752711<span class="tag">&lt;/RtrId&gt;</span>
+        <span class="tag">&lt;OrgnlGrpInf&gt;</span>
+            <span class="tag">&lt;OrgnlMsgId&gt;</span>TEST_MSG_2022-07-13-938247209<span class="tag">&lt;/OrgnlMsgId&gt;</span>
+            <span class="tag">&lt;OrgnlMsgNmId&gt;</span>pain.001.001.06<span class="tag">&lt;/OrgnlMsgNmId&gt;</span>
+        <span class="tag">&lt;/OrgnlGrpInf&gt;</span>
+        <span class="tag">&lt;OrgnlInstrId&gt;</span>TEST_PCT_2022-07-13-938247209<span class="tag">&lt;/OrgnlInstrId&gt;</span>
+        <span class="tag">&lt;OrgnlTxId&gt;</span>TEST_PMT_2022-07-13-938247209<span class="tag">&lt;/OrgnlTxId&gt;</span>
+        <span class="tag">&lt;RtrdIntrBkSttlmAmt</span> <span class="attribute-name">Ccy</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">RUR</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>100<span class="tag">&lt;/RtrdIntrBkSttlmAmt&gt;</span>
+    <span class="tag">&lt;/TxInf&gt;</span>
+    <span class="tag">&lt;SplmtryData&gt;</span>
+      <span class="tag">&lt;Envlp&gt;</span>
+        <span class="tag">&lt;SgntrSt&gt;</span>
+        <span class="tag">&lt;/SgntrSt&gt;</span>
+      <span class="tag">&lt;/Envlp&gt;</span>
+    <span class="tag">&lt;/SplmtryData&gt;</span>
+  <span class="tag">&lt;/PmtRtr&gt;</span>
+<span class="tag">&lt;/Document&gt;</span></code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary><b>Пример ответа при автоматическом отзыве платежа</b></summary>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="tag">&lt;Document</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:iso:std:iso:20022:tech:xsd:pain.002.001.06</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;CstmrPmtStsRpt&gt;</span>
+        <span class="tag">&lt;GrpHdr&gt;</span>
+            <span class="tag">&lt;MsgId&gt;</span>660de3219004491397a5904ea486fd0e<span class="tag">&lt;/MsgId&gt;</span>
+            <span class="tag">&lt;CreDtTm&gt;</span>2022-08-10T11:36:11.977+03:00<span class="tag">&lt;/CreDtTm&gt;</span>
+            <span class="tag">&lt;InitgPty&gt;</span>
+                <span class="tag">&lt;Id&gt;</span>
+                    <span class="tag">&lt;OrgId&gt;</span>
+                        <span class="tag">&lt;AnyBIC&gt;</span>ALFARUMM<span class="tag">&lt;/AnyBIC&gt;</span>
+                        <span class="tag">&lt;Othr&gt;</span>
+                            <span class="tag">&lt;Id&gt;</span>044525593<span class="tag">&lt;/Id&gt;</span>
+                        <span class="tag">&lt;/Othr&gt;</span>
+                    <span class="tag">&lt;/OrgId&gt;</span>
+                <span class="tag">&lt;/Id&gt;</span>
+            <span class="tag">&lt;/InitgPty&gt;</span>
+        <span class="tag">&lt;/GrpHdr&gt;</span>
+        <span class="tag">&lt;OrgnlGrpInfAndSts&gt;</span>
+            <span class="tag">&lt;OrgnlMsgId&gt;</span>TEST_MSG_2022-08-10-476153300<span class="tag">&lt;/OrgnlMsgId&gt;</span>
+            <span class="tag">&lt;OrgnlMsgNmId&gt;</span>pacs.004.001.11<span class="tag">&lt;/OrgnlMsgNmId&gt;</span>
+            <span class="tag">&lt;OrgnlCreDtTm&gt;</span>2022-08-10T11:36:11.882+03:00<span class="tag">&lt;/OrgnlCreDtTm&gt;</span>
+            <span class="tag">&lt;GrpSts&gt;</span>ACSC<span class="tag">&lt;/GrpSts&gt;</span>
+        <span class="tag">&lt;/OrgnlGrpInfAndSts&gt;</span>
+        <span class="tag">&lt;OrgnlPmtInfAndSts&gt;</span>
+            <span class="tag">&lt;OrgnlPmtInfId&gt;</span>TEST_PCT_2022-08-10-564604871<span class="tag">&lt;/OrgnlPmtInfId&gt;</span>
+            <span class="tag">&lt;PmtInfSts&gt;</span>ACSC<span class="tag">&lt;/PmtInfSts&gt;</span>
+            <span class="tag">&lt;TxInfAndSts&gt;</span>
+                <span class="tag">&lt;OrgnlInstrId&gt;</span>TEST_PMT_2022-08-10-564604871<span class="tag">&lt;/OrgnlInstrId&gt;</span>
+                <span class="tag">&lt;TxSts&gt;</span>ACSC<span class="tag">&lt;/TxSts&gt;</span>
+                <span class="tag">&lt;StsRsnInf&gt;</span>
+                    <span class="tag">&lt;Rsn&gt;</span>
+                        <span class="tag">&lt;Cd&gt;</span>NARR<span class="tag">&lt;/Cd&gt;</span>
+                    <span class="tag">&lt;/Rsn&gt;</span>
+                    <span class="tag">&lt;AddtlInf&gt;</span>Запрос на отзыв платежа выполнен: платёж отозван<span class="tag">&lt;/AddtlInf&gt;</span>
+                <span class="tag">&lt;/StsRsnInf&gt;</span>
+                <span class="tag">&lt;AccptncDtTm&gt;</span>2022-08-10T11:36:11.907+03:00<span class="tag">&lt;/AccptncDtTm&gt;</span>
+            <span class="tag">&lt;/TxInfAndSts&gt;</span>
+        <span class="tag">&lt;/OrgnlPmtInfAndSts&gt;</span>
+    <span class="tag">&lt;/CstmrPmtStsRpt&gt;</span>
+<span class="tag">&lt;/Document&gt;</span></code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary><b>Пример ответа при отзыве платежа письмом</b></summary>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="xml">Headers ...
+        Location = /API/v1/ISO20022/Letters/TEST_MSG_2022-07-21-170531660636652
+        ...
+<span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="tag">&lt;Document</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:iso:std:iso:20022:tech:xsd:pain.002.001.06</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;CstmrPmtStsRpt&gt;</span>
+        <span class="tag">&lt;GrpHdr&gt;</span>
+            <span class="tag">&lt;MsgId&gt;</span>7c1af40c934b4cad809a645ded03d081<span class="tag">&lt;/MsgId&gt;</span>
+            <span class="tag">&lt;CreDtTm&gt;</span>2022-08-10T11:33:41.112+03:00<span class="tag">&lt;/CreDtTm&gt;</span>
+            <span class="tag">&lt;InitgPty&gt;</span>
+                <span class="tag">&lt;Id&gt;</span>
+                    <span class="tag">&lt;OrgId&gt;</span>
+                        <span class="tag">&lt;AnyBIC&gt;</span>ALFARUMM<span class="tag">&lt;/AnyBIC&gt;</span>
+                        <span class="tag">&lt;Othr&gt;</span>
+                            <span class="tag">&lt;Id&gt;</span>044525593<span class="tag">&lt;/Id&gt;</span>
+                        <span class="tag">&lt;/Othr&gt;</span>
+                    <span class="tag">&lt;/OrgId&gt;</span>
+                <span class="tag">&lt;/Id&gt;</span>
+            <span class="tag">&lt;/InitgPty&gt;</span>
+        <span class="tag">&lt;/GrpHdr&gt;</span>
+        <span class="tag">&lt;OrgnlGrpInfAndSts&gt;</span>
+            <span class="tag">&lt;OrgnlMsgId&gt;</span>TEST_MSG_2022-08-10-476153318<span class="tag">&lt;/OrgnlMsgId&gt;</span>
+            <span class="tag">&lt;OrgnlMsgNmId&gt;</span>pacs.004.001.11<span class="tag">&lt;/OrgnlMsgNmId&gt;</span>
+            <span class="tag">&lt;OrgnlCreDtTm&gt;</span>2022-08-10T11:33:40.629+03:00<span class="tag">&lt;/OrgnlCreDtTm&gt;</span>
+            <span class="tag">&lt;GrpSts&gt;</span>ACSC<span class="tag">&lt;/GrpSts&gt;</span>
+        <span class="tag">&lt;/OrgnlGrpInfAndSts&gt;</span>
+        <span class="tag">&lt;OrgnlPmtInfAndSts&gt;</span>
+            <span class="tag">&lt;OrgnlPmtInfId&gt;</span>TEST_PCT_2022-08-10-999494950<span class="tag">&lt;/OrgnlPmtInfId&gt;</span>
+            <span class="tag">&lt;PmtInfSts&gt;</span>ACSC<span class="tag">&lt;/PmtInfSts&gt;</span>
+            <span class="tag">&lt;TxInfAndSts&gt;</span>
+                <span class="tag">&lt;OrgnlInstrId&gt;</span>TEST_PMT_2022-08-10-999494950<span class="tag">&lt;/OrgnlInstrId&gt;</span>
+                <span class="tag">&lt;TxSts&gt;</span>ACSC<span class="tag">&lt;/TxSts&gt;</span>
+                <span class="tag">&lt;StsRsnInf&gt;</span>
+                    <span class="tag">&lt;Rsn&gt;</span>
+                        <span class="tag">&lt;Cd&gt;</span>NARR<span class="tag">&lt;/Cd&gt;</span>
+                    <span class="tag">&lt;/Rsn&gt;</span>
+                    <span class="tag">&lt;AddtlInf&gt;</span>Запрос на отзыв платежа выполнен: идентификатор официального письма в банк указан в header Location<span class="tag">&lt;/AddtlInf&gt;</span>
+                <span class="tag">&lt;/StsRsnInf&gt;</span>
+                <span class="tag">&lt;AccptncDtTm&gt;</span>2022-08-10T11:32:50.476+03:00<span class="tag">&lt;/AccptncDtTm&gt;</span>
+            <span class="tag">&lt;/TxInfAndSts&gt;</span>
+        <span class="tag">&lt;/OrgnlPmtInfAndSts&gt;</span>
+    <span class="tag">&lt;/CstmrPmtStsRpt&gt;</span>
+<span class="tag">&lt;/Document&gt;</span></code></pre>
+</div>
+</div>
+</details>
+<details>
+<summary><b>Пример ответа, когда платеж не найден</b></summary>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="tag">&lt;Document</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:iso:std:iso:20022:tech:xsd:pain.002.001.06</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;CstmrPmtStsRpt&gt;</span>
+        <span class="tag">&lt;GrpHdr&gt;</span>
+            <span class="tag">&lt;MsgId&gt;</span>56a130f1bedd4bd38be5b9b7dedcb24d<span class="tag">&lt;/MsgId&gt;</span>
+            <span class="tag">&lt;CreDtTm&gt;</span>2022-08-09T09:55:54.524+03:00<span class="tag">&lt;/CreDtTm&gt;</span>
+            <span class="tag">&lt;InitgPty&gt;</span>
+                <span class="tag">&lt;Id&gt;</span>
+                    <span class="tag">&lt;OrgId&gt;</span>
+                        <span class="tag">&lt;AnyBIC&gt;</span>ALFARUMM<span class="tag">&lt;/AnyBIC&gt;</span>
+                        <span class="tag">&lt;Othr&gt;</span>
+                            <span class="tag">&lt;Id&gt;</span>044525593<span class="tag">&lt;/Id&gt;</span>
+                        <span class="tag">&lt;/Othr&gt;</span>
+                    <span class="tag">&lt;/OrgId&gt;</span>
+                <span class="tag">&lt;/Id&gt;</span>
+            <span class="tag">&lt;/InitgPty&gt;</span>
+        <span class="tag">&lt;/GrpHdr&gt;</span>
+        <span class="tag">&lt;OrgnlGrpInfAndSts&gt;</span>
+            <span class="tag">&lt;OrgnlMsgId&gt;</span>time_id:1660028154520<span class="tag">&lt;/OrgnlMsgId&gt;</span>
+            <span class="tag">&lt;OrgnlMsgNmId&gt;</span>pacs.004.001.11<span class="tag">&lt;/OrgnlMsgNmId&gt;</span>
+            <span class="tag">&lt;OrgnlCreDtTm&gt;</span>2022-08-09T09:55:54.520+03:00<span class="tag">&lt;/OrgnlCreDtTm&gt;</span>
+            <span class="tag">&lt;GrpSts&gt;</span>RJCT<span class="tag">&lt;/GrpSts&gt;</span>
+            <span class="tag">&lt;StsRsnInf&gt;</span>
+                <span class="tag">&lt;Rsn&gt;</span>
+                    <span class="tag">&lt;Cd&gt;</span>NARR<span class="tag">&lt;/Cd&gt;</span>
+                <span class="tag">&lt;/Rsn&gt;</span>
+                <span class="tag">&lt;AddtlInf&gt;</span>Платёж не найден! Проверьте идентификатор(ы) отзываемого платежа<span class="tag">&lt;/AddtlInf&gt;</span>
+            <span class="tag">&lt;/StsRsnInf&gt;</span>
+        <span class="tag">&lt;/OrgnlGrpInfAndSts&gt;</span>
+    <span class="tag">&lt;/CstmrPmtStsRpt&gt;</span>
+<span class="tag">&lt;/Document&gt;</span></code></pre>
+</div>
+</div>
+</details>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-01 15:01:15 +0300
+Last updated 2022-09-02 13:22:54 +0300
 </div>
 </div>
 </body>

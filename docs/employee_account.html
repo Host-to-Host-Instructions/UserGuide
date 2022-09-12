@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<title>23. Заявка на открытие лицевых счетов</title>
+<title>24. Заявка на открытие лицевых счетов</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -527,7 +527,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#23-Заявка-на-открытие-лицевых-счетов">23. Заявка на открытие лицевых счетов</a>
+<li><a href="#24-Заявка-на-открытие-лицевых-счетов">24. Заявка на открытие лицевых счетов</a>
 <ul class="sectlevel2">
 <li><a href="#uri">URI</a></li>
 <li><a href="#xsd-схема">XSD схема</a></li>
@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="23-Заявка-на-открытие-лицевых-счетов">23. Заявка на открытие лицевых счетов</h2>
+<h2 id="24-Заявка-на-открытие-лицевых-счетов">24. Заявка на открытие лицевых счетов</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="uri">URI</h3>
@@ -972,7 +972,7 @@ table.CodeRay td.code>pre{padding:0}
         <span class="tag">&lt;AcctSvcrId&gt;</span>
             <span class="tag">&lt;FinInstnId&gt;</span>
                 <span class="tag">&lt;ClrSysMmbId&gt;</span>
-                    <span class="tag">&lt;MmbId&gt;</span>005V4Z<span class="tag">&lt;/MmbId&gt;</span> <span class="comment">&lt;!-- Номер ЗП договора --&gt;</span>
+                    <span class="tag">&lt;MmbId&gt;</span>00753Z<span class="tag">&lt;/MmbId&gt;</span> <span class="comment">&lt;!-- Номер ЗП договора --&gt;</span>
                 <span class="tag">&lt;/ClrSysMmbId&gt;</span>
                 <span class="tag">&lt;Othr&gt;</span>
                     <span class="tag">&lt;Id&gt;</span>044525593<span class="tag">&lt;/Id&gt;</span> <span class="comment">&lt;!-- БИК --&gt;</span>
@@ -988,13 +988,13 @@ table.CodeRay td.code>pre{padding:0}
             <span class="tag">&lt;/LglAdr&gt;</span>
             <span class="tag">&lt;OrgId&gt;</span>
                 <span class="tag">&lt;Othr&gt;</span>
-                    <span class="tag">&lt;Id&gt;</span>0178827953<span class="tag">&lt;/Id&gt;</span> <span class="comment">&lt;!-- ИНН --&gt;</span>
+                    <span class="tag">&lt;Id&gt;</span>0664010623<span class="tag">&lt;/Id&gt;</span> <span class="comment">&lt;!-- ИНН --&gt;</span>
                     <span class="tag">&lt;SchmeNm&gt;</span>
                         <span class="tag">&lt;Cd&gt;</span>TXID<span class="tag">&lt;/Cd&gt;</span> <span class="comment">&lt;!-- Константа ИНН --&gt;</span>
                     <span class="tag">&lt;/SchmeNm&gt;</span>
                 <span class="tag">&lt;/Othr&gt;</span>
                 <span class="tag">&lt;Othr&gt;</span>
-                    <span class="tag">&lt;Id&gt;</span>40702810100000000196<span class="tag">&lt;/Id&gt;</span> <span class="comment">&lt;!-- Счёт --&gt;</span>
+                    <span class="tag">&lt;Id&gt;</span>40702810800000000111<span class="tag">&lt;/Id&gt;</span> <span class="comment">&lt;!-- Счёт --&gt;</span>
                     <span class="tag">&lt;SchmeNm&gt;</span>
                         <span class="tag">&lt;Cd&gt;</span>ACC<span class="tag">&lt;/Cd&gt;</span> <span class="comment">&lt;!-- Константа счёта --&gt;</span>
                     <span class="tag">&lt;/SchmeNm&gt;</span>
@@ -1105,22 +1105,10 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">Пользователь не найден</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User is disabled</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Пользователь заблокирован</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warrant is expired</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность истекла</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warrant was not found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность не найдена</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
@@ -1129,13 +1117,13 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">Пользователь не имеет право подписывать документы такого типа</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Warrant service error</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Сервис проверки доверенности не отвечает</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">406</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User does not have permission</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Нет прав на выполнение запроса</p></td>
@@ -1147,15 +1135,39 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">Нет подписи</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">406</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Certificate is not valid</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Сертификат подписи невалидный</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signer&#8217;s warrant is disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность подписанта заблокирована</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of signatures is not enough for this operation type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Недостаточно подписей для типа операции</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Certificate is disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сертификат заблокирован</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The signer certificate is not valid (revoked or not active)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сертификат подписанта отозван или невалидный</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">406</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Signature is not valid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signature value is not valid</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Подпись невалидна</p></td>
 </tr>
 <tr>
@@ -1209,7 +1221,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-22 14:29:27 +0300
+Last updated 2022-09-01 15:02:53 +0300
 </div>
 </div>
 </body>

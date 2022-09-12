@@ -577,6 +577,13 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">Получение статуса по конкретному ВП/ПП</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-middle"><p class="tableblock">Отзыв платежа</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create Recall Payment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/API/v1/ISO20022/Payments/Recall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Отзыв платежа</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-center valign-middle" rowspan="2"><p class="tableblock">Выписка</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Post Request for Statement</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
@@ -835,6 +842,25 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">/API/v1/ISO20022/EmployeeAccount/&lt;MsgId&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Получить статус сообщения с заявкой на открытие ЛС</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-center valign-middle" rowspan="3"><p class="tableblock">Формирование архива со списком ВБК</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create an archive of bank control statements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/API/v1/ISO20022/ContractReports</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Создание архива с ВБК по контрактам</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Get Message Status by Id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/API/v1/ISO20022/ContractReports/&lt;MsgId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Получение статуса по сообщению, содержащему все переданные номера контрактов</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Download file by Id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/API/v1/ISO20022/ContractReports/Files/&lt;MsgId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Скачивание архива со списком ВБК</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -842,7 +868,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-10 12:34:23 +0300
+Last updated 2022-08-23 15:15:12 +0300
 </div>
 </div>
 </body>

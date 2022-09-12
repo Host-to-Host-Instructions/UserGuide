@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "2bc00fbd-e491-4dd3-a795-45fce69c723e",
+		"_postman_id": "a0469939-c6de-4243-b009-06fc47e66b06",
 		"name": "H2H [CLIENTS]",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21254812"
 	},
 	"item": [
 		{
@@ -668,6 +669,142 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "account-balance",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.060.001.03\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\n    <AcctRptgReq>\n        <GrpHdr>\n            <MsgId>H2H_TEST_STMT_112368042870656700001</MsgId>\n            <CreDtTm>2022-08-31T10:00:18</CreDtTm>\n        </GrpHdr>\n        <RptgReq>\n            <Id>H2H_TEST_STMT_112368042870656700002</Id>\n            <ReqdMsgNmId>HMQSTASCF</ReqdMsgNmId>\n            <Acct>\n                <Id>\n                    <Othr>\n                        <Id>40702810200000000083</Id>\n                    </Othr>\n                </Id>\n            </Acct>\n            <AcctOwnr>\n                <Pty>\n                    <Nm>Общество с ограниченной ответственностью \"Тест Альфа-Линк\"</Nm>\n                </Pty>\n            </AcctOwnr>\n        </RptgReq>\n        <SplmtryData>\n            <Envlp>\n                <SgntrSt>\n                </SgntrSt>\n            </Envlp>\n        </SplmtryData>\n    </AcctRptgReq>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Statements/AccountBalance",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Statements",
+								"AccountBalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "account-balance-extended",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.060.001.03\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\n    <AcctRptgReq>\n        <GrpHdr>\n            <MsgId>H2H_TEST_STMT_112368042870656700003</MsgId>\n            <CreDtTm>2022-08-31T10:00:18</CreDtTm>\n        </GrpHdr>\n        <RptgReq>\n            <Id>H2H_TEST_STMT_112368042870656700004</Id>\n            <ReqdMsgNmId>HMQSTASCF</ReqdMsgNmId>\n            <Acct>\n                <Id>\n                    <Othr>\n                        <Id>40702810200000000083</Id>\n                    </Othr>\n                </Id>\n            </Acct>\n            <AcctOwnr>\n                <Pty>\n                    <Nm>Общество с ограниченной ответственностью \"Тест Альфа-Линк\"</Nm>\n                </Pty>\n            </AcctOwnr>\n        </RptgReq>\n        <SplmtryData>\n            <Envlp>\n                <SgntrSt>\n                </SgntrSt>\n            </Envlp>\n        </SplmtryData>\n    </AcctRptgReq>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Statements/AccountBalanceExtended",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Statements",
+								"AccountBalanceExtended"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -736,6 +873,74 @@
 								"v1",
 								"ISO20022",
 								"Payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recallpayments",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pacs.004.001.11\">\r\n  <PmtRtr>\r\n    <GrpHdr>\r\n        <MsgId>TEST_MSG_2022-07-13-476153300</MsgId>\r\n        <CreDtTm>2022-07-13T09:11:12</CreDtTm>\r\n        <NbOfTxs>1</NbOfTxs>\r\n        <SttlmInf>\r\n            <SttlmMtd>INDA</SttlmMtd>\r\n            <InstgRmbrsmntAgt>\r\n                <FinInstnId>\r\n                    <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                    <Othr>\r\n                        <Id>40702810200000000083</Id>\r\n                        <SchmeNm>\r\n                            <Cd>ACC</Cd>\r\n                        </SchmeNm>\r\n                    </Othr>\r\n                </FinInstnId>\r\n            </InstgRmbrsmntAgt>\r\n            <InstdRmbrsmntAgt>\r\n                <FinInstnId>\r\n                    <Othr>\r\n                        <Id>7013602245</Id>\r\n                        <SchmeNm>\r\n                            <Cd>TXID</Cd>\r\n                        </SchmeNm>\r\n                    </Othr>\r\n                </FinInstnId>\r\n            </InstdRmbrsmntAgt>\r\n        </SttlmInf>\r\n    </GrpHdr>\r\n    <TxInf>\r\n        <RtrId>TEST_ID_2022-08-10-476153300</RtrId>\r\n        <OrgnlGrpInf>\r\n            <OrgnlMsgId>TEST_MSG_2022-08-10-564604871</OrgnlMsgId>\r\n            <OrgnlMsgNmId>pain.001.001.06</OrgnlMsgNmId>\r\n        </OrgnlGrpInf>\r\n        <OrgnlInstrId>TEST_PCT_2022-08-10-564604871</OrgnlInstrId>\r\n        <OrgnlTxId>TEST_PMT_2022-08-10-5646071</OrgnlTxId>\r\n        <RtrdIntrBkSttlmAmt Ccy=\"RUR\">100</RtrdIntrBkSttlmAmt>\r\n    </TxInf>\r\n    <SplmtryData>\r\n      <Envlp>\r\n        <SgntrSt>\r\n        </SgntrSt>\r\n      </Envlp>\r\n    </SplmtryData>\r\n  </PmtRtr>\r\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Payments/Recall",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Payments",
+								"Recall"
 							]
 						}
 					},
@@ -1877,6 +2082,261 @@
 									"value": "",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contract-reports",
+			"item": [
+				{
+					"name": "create contract reports",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.026.001.01\">\n    <CcyCtrlReqOrLttr>\n        <GrpHdr>\n            <MsgId>TEST_MSG_2022-08-29-62353324_2</MsgId>\n            <CreDtTm>2022-08-29T11:08:25.129</CreDtTm>\n            <NbOfItms>1</NbOfItms>\n            <InitgPty>\n                <Pty>\n                    <Nm>ООО \"Тест Альфа-Линк\"</Nm>\n                    <Id>\n                        <OrgId>\n                            <Othr>\n                                <Id>7013602245</Id>\n                                <SchmeNm>\n                                    <Cd>TXID</Cd>\n                                </SchmeNm>\n                            </Othr>\n                            <Othr>\n                                <Id>1092940217001</Id>\n                                <SchmeNm>\n                                    <Cd>PSRN</Cd>\n                                </SchmeNm>\n                            </Othr>\n                        </OrgId>\n                    </Id>\n                </Pty>\n            </InitgPty>\n        </GrpHdr>\n        <ReqOrLttr>\n            <ReqOrLttrId>TEST_ID_2022-08-29-6235332411</ReqOrLttrId>\n            <Sbjt>VBK</Sbjt>\n            <Tp>PDF</Tp>\n            <Desc>22080915/1326/0000/1/1</Desc>\n            <RspnReqrd>true</RspnReqrd>\n        </ReqOrLttr>\n        <ReqOrLttr>\n            <ReqOrLttrId>TEST_ID_2022-08-29-6235332412</ReqOrLttrId>\n            <Sbjt>VBK</Sbjt>\n            <Tp>PDF</Tp>\n            <Desc>22080758/1326/0000/1/1</Desc>\n            <RspnReqrd>true</RspnReqrd>\n        </ReqOrLttr>\n        <SplmtryData>\n            <Envlp>\n                <SgntrSt>\n                </SgntrSt>\n            </Envlp>\n        </SplmtryData>\n    </CcyCtrlReqOrLttr>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ContractReports",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ContractReports"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "create contract reports",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.026.001.01\">\n    <CcyCtrlReqOrLttr>\n        <GrpHdr>\n            <MsgId>TEST_MSG_2022-08-29-62353324_2</MsgId>\n            <CreDtTm>2022-08-29T11:08:25.129</CreDtTm>\n            <NbOfItms>1</NbOfItms>\n            <InitgPty>\n                <Pty>\n                    <Nm>ООО \"Тест Альфа-Линк\"</Nm>\n                    <Id>\n                        <OrgId>\n                            <Othr>\n                                <Id>7013602245</Id>\n                                <SchmeNm>\n                                    <Cd>TXID</Cd>\n                                </SchmeNm>\n                            </Othr>\n                            <Othr>\n                                <Id>1092940217001</Id>\n                                <SchmeNm>\n                                    <Cd>PSRN</Cd>\n                                </SchmeNm>\n                            </Othr>\n                        </OrgId>\n                    </Id>\n                </Pty>\n            </InitgPty>\n        </GrpHdr>\n        <ReqOrLttr>\n            <ReqOrLttrId>TEST_ID_2022-08-29-6235332411</ReqOrLttrId>\n            <Sbjt>VBK</Sbjt>\n            <Tp>PDF</Tp>\n            <Desc>22080915/1326/0000/1/1</Desc>\n            <RspnReqrd>true</RspnReqrd>\n        </ReqOrLttr>\n        <ReqOrLttr>\n            <ReqOrLttrId>TEST_ID_2022-08-29-6235332412</ReqOrLttrId>\n            <Sbjt>VBK</Sbjt>\n            <Tp>PDF</Tp>\n            <Desc>22080758/1326/0000/1/1</Desc>\n            <RspnReqrd>true</RspnReqrd>\n        </ReqOrLttr>\n        <SplmtryData>\n            <Envlp>\n                <SgntrSt>\n                </SgntrSt>\n            </Envlp>\n        </SplmtryData>\n    </CcyCtrlReqOrLttr>\n</Document>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ContractReports",
+									"protocol": "https",
+									"host": [
+										"grampus-int",
+										"alfabank",
+										"ru"
+									],
+									"path": [
+										"API",
+										"v1",
+										"ISO20022",
+										"ContractReports"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Aug 2022 12:11:42 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1018"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.027.001.01\">\n    <CcyCtrlStsAdvc>\n        <GrpHdr>\n            <MsgId>10bf7e87c46142af99b562b96e442d77</MsgId>\n            <CreDtTm>2022-08-29T15:11:42.389+03:00</CreDtTm>\n            <NbOfItms>1</NbOfItms>\n            <RcvgPty/>\n            <RegnAgt>\n                <FinInstnId>\n                    <BICFI>ALFARUMM</BICFI>\n                    <ClrSysMmbId>\n                        <MmbId>044525593</MmbId>\n                    </ClrSysMmbId>\n                </FinInstnId>\n            </RegnAgt>\n        </GrpHdr>\n        <GrpSts>\n            <OrgnlRefs>\n                <OrgnlMsgId>TEST_MSG_2022-08-29-62353324_2</OrgnlMsgId>\n                <OrgnlMsgNmId>auth.026.001.01</OrgnlMsgNmId>\n                <OrgnlCreDtTm>2022-08-29T14:08:25.129+03:00</OrgnlCreDtTm>\n            </OrgnlRefs>\n            <RptgPty>\n                <PtyId>\n                    <Id>\n                        <OrgId>\n                            <Othr>\n                                <Id>044525593</Id>\n                            </Othr>\n                        </OrgId>\n                    </Id>\n                </PtyId>\n            </RptgPty>\n            <RegnAgt>\n                <FinInstnId>\n                    <BICFI>ALFARUMM</BICFI>\n                </FinInstnId>\n            </RegnAgt>\n            <Sts>RCVD</Sts>\n        </GrpSts>\n        <PackgSts>\n            <PackgId>undefined</PackgId>\n            <Sts>RCVD</Sts>\n            <RcrdSts>\n                <RcrdId>TEST_ID_2022-08-29-6235332411</RcrdId>\n                <Sts>RCVD</Sts>\n            </RcrdSts>\n            <RcrdSts>\n                <RcrdId>TEST_ID_2022-08-29-6235332412</RcrdId>\n                <Sts>RCVD</Sts>\n            </RcrdSts>\n        </PackgSts>\n    </CcyCtrlStsAdvc>\n</Document>"
+						}
+					]
+				},
+				{
+					"name": "contract reports status",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "user-id",
+								"value": "1334",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ContractReports/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ContractReports",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "contract reports status",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "user-id",
+										"value": "1334",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ContractReports/TEST_MSG_2022-08-29-62353324_2",
+									"protocol": "https",
+									"host": [
+										"grampus-int",
+										"alfabank",
+										"ru"
+									],
+									"path": [
+										"API",
+										"v1",
+										"ISO20022",
+										"ContractReports",
+										"TEST_MSG_2022-08-29-62353324_2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Aug 2022 12:13:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1018"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.027.001.01\">\n    <CcyCtrlStsAdvc>\n        <GrpHdr>\n            <MsgId>43431ba9a6194125944e9a9fd8f26781</MsgId>\n            <CreDtTm>2022-08-29T15:13:29.127+03:00</CreDtTm>\n            <NbOfItms>1</NbOfItms>\n            <RcvgPty/>\n            <RegnAgt>\n                <FinInstnId>\n                    <BICFI>ALFARUMM</BICFI>\n                    <ClrSysMmbId>\n                        <MmbId>044525593</MmbId>\n                    </ClrSysMmbId>\n                </FinInstnId>\n            </RegnAgt>\n        </GrpHdr>\n        <GrpSts>\n            <OrgnlRefs>\n                <OrgnlMsgId>TEST_MSG_2022-08-29-62353324_2</OrgnlMsgId>\n                <OrgnlMsgNmId>auth.026.001.01</OrgnlMsgNmId>\n                <OrgnlCreDtTm>2022-08-29T14:08:25.129+03:00</OrgnlCreDtTm>\n            </OrgnlRefs>\n            <RptgPty>\n                <PtyId>\n                    <Id>\n                        <OrgId>\n                            <Othr>\n                                <Id>044525593</Id>\n                            </Othr>\n                        </OrgId>\n                    </Id>\n                </PtyId>\n            </RptgPty>\n            <RegnAgt>\n                <FinInstnId>\n                    <BICFI>ALFARUMM</BICFI>\n                </FinInstnId>\n            </RegnAgt>\n            <Sts>ACPT</Sts>\n        </GrpSts>\n        <PackgSts>\n            <PackgId>undefined</PackgId>\n            <Sts>ACPT</Sts>\n            <RcrdSts>\n                <RcrdId>TEST_ID_2022-08-29-6235332411</RcrdId>\n                <Sts>ACPT</Sts>\n            </RcrdSts>\n            <RcrdSts>\n                <RcrdId>TEST_ID_2022-08-29-6235332412</RcrdId>\n                <Sts>ACPT</Sts>\n            </RcrdSts>\n        </PackgSts>\n    </CcyCtrlStsAdvc>\n</Document>"
+						}
+					]
+				},
+				{
+					"name": "download contract reports",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ContractReports/Files/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ContractReports",
+								"Files",
+								"<MSG_ID>"
 							]
 						}
 					},
