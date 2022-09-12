@@ -1,0 +1,1888 @@
+{
+	"info": {
+		"_postman_id": "2bc00fbd-e491-4dd3-a795-45fce69c723e",
+		"name": "H2H [CLIENTS]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "letters",
+			"item": [
+				{
+					"name": "letters",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.026.001.01\">\r\n    <CcyCtrlReqOrLttr>\r\n        <GrpHdr>\r\n            <MsgId>TEST_MSG_2022-01-14-132023775</MsgId>\r\n            <CreDtTm>2022-01-14T13:20:23.775</CreDtTm>\r\n            <NbOfItms>1</NbOfItms>\r\n            <InitgPty>\r\n                <Pty>\r\n                    <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                    <Id>\r\n                        <OrgId>\r\n                            <Othr>\r\n                                <Id>7013602245</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>TXID</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                            <Othr>\r\n                                <Id>40702810200000000083</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>ACC</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                        </OrgId>\r\n                    </Id>\r\n                </Pty>\r\n            </InitgPty>\r\n        </GrpHdr>\r\n        <ReqOrLttr>\r\n            <ReqOrLttrId>TEST_ID_2022-01-14-132023775</ReqOrLttrId>\r\n            <Dt>2022-01-14</Dt>\r\n            <Sndr>\r\n                <Pty>\r\n                    <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                    <Id>\r\n                        <OrgId>\r\n                            <Othr>\r\n                                <Id>40702810200000000083</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>ACC</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                            <Othr>\r\n                                <Id>7013602245</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>TXID</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                        </OrgId>\r\n                    </Id>\r\n                </Pty>\r\n            </Sndr>\r\n            <Rcvr>\r\n                <Pty>\r\n                    <Nm>АО \"АЛЬФА-БАНК\"</Nm>\r\n                    <Id>\r\n                        <OrgId>\r\n                            <AnyBIC>ALFARUMM</AnyBIC>\r\n                        </OrgId>\r\n                    </Id>\r\n                </Pty>\r\n            </Rcvr>\r\n            <Sbjt>Запрос на отзыв платежа</Sbjt>\r\n            <Tp>RJCT</Tp>\r\n            <Desc>Текст запроса на отзыв платежа</Desc>\r\n            <RspnReqrd>true</RspnReqrd> \r\n        </ReqOrLttr>\r\n        <SplmtryData>\r\n            <Envlp>\r\n                <SgntrSt>\r\n                </SgntrSt>\r\n            </Envlp>\r\n        </SplmtryData>\r\n    </CcyCtrlReqOrLttr>\r\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Letters",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Letters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "letters with attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"description": "Выбрать файл letter_with_attach.xml из папки For_attachment (предварительно в нём поменять идентификаторы на уникальные и  переподписать)",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/letter_with_attach.xml"
+								},
+								{
+									"key": "attachment",
+									"description": "Выбрать файл test.pdf из папки For_attachment",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/test.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Letters",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Letters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "letters",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Letters/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Letters",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "letters-list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.026.001.01\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\r\n<CcyCtrlReqOrLttr>\r\n    <GrpHdr>\r\n        <MsgId>TEST_MSG_2022-02-28-175217930</MsgId>\r\n        <CreDtTm>2022-02-28T17:52:17.930</CreDtTm>\r\n        <NbOfItms>1</NbOfItms>\r\n        <InitgPty>\r\n            <Pty>\r\n                <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                <Id>\r\n                    <OrgId>\r\n                        <Othr>\r\n                            <Id>7013602245</Id>\r\n                            <SchmeNm>\r\n                                <Cd>TXID</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                        <Othr>\r\n                            <Id>40702810200000000083</Id>\r\n                            <SchmeNm>\r\n                                <Cd>ACC</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                    </OrgId>\r\n                </Id>\r\n            </Pty>\r\n        </InitgPty>\r\n    </GrpHdr>\r\n    <ReqOrLttr>\r\n        <ReqOrLttrId>TEST_ID_2022-02-28-175217930</ReqOrLttrId>\r\n        <Sndr>\r\n            <Pty>\r\n                <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                <Id>\r\n                    <OrgId>\r\n                        <Othr>\r\n                            <Id>7013602245</Id>\r\n                            <SchmeNm>\r\n                                <Cd>TXID</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                        <Othr>\r\n                            <Id>40702810200000000083</Id>\r\n                            <SchmeNm>\r\n                                <Cd>ACC</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                    </OrgId>\r\n                </Id>\r\n            </Pty>\r\n        </Sndr>\r\n        <Rcvr>\r\n            <Agt>\r\n                <FinInstnId>\r\n                    <ClrSysMmbId>\r\n                        <ClrSysId>\r\n                            <Cd>RUCBC</Cd>\r\n                        </ClrSysId>\r\n                        <MmbId>044525593</MmbId>\r\n                    </ClrSysMmbId>\r\n                    <Nm>АО \"Альфа-Банк\"</Nm>\r\n                </FinInstnId>\r\n            </Agt>\r\n        </Rcvr>\r\n        <Sbjt>Запрос списка писем и уведомлений о пвв на твс</Sbjt>\r\n        <Tp>ALLL</Tp>\r\n        <Desc>Запрос списка писем и уведомлений о пвв на твс</Desc>\r\n        <RspnReqrd>false</RspnReqrd>\r\n        <SplmtryData>\r\n            <Envlp>\r\n                <AdditionalData>\r\n                    <FrToDt>\r\n                        <FrDt>2022-01-10</FrDt>\r\n                        <ToDt>2022-01-20</ToDt>\r\n                    </FrToDt>\r\n                    <OnlyNew>false</OnlyNew>\r\n                </AdditionalData>\r\n            </Envlp>\r\n        </SplmtryData>\r\n    </ReqOrLttr>\r\n    <SplmtryData>\r\n        <Envlp>\r\n            <SgntrSt>\r\n            </SgntrSt>\r\n        </Envlp>\r\n    </SplmtryData>\r\n</CcyCtrlReqOrLttr>\r\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Letters/Lists",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Letters",
+								"Lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "letters/outletters",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Letters/InLetters/Files/<ReqOrLttrId>/<DocNb>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Letters",
+								"InLetters",
+								"Files",
+								"<ReqOrLttrId>",
+								"<DocNb>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "letters-list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Letters/Lists/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Letters",
+								"Lists",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "fcyrls",
+			"item": [
+				{
+					"name": "fcyrls [part]",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pain.001.001.06\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\t<CstmrCdtTrfInitn>\n\t\t<GrpHdr>\n\t\t\t<MsgId>TEST_MSG_2022_03_02_1000053111</MsgId>\n\t\t\t<CreDtTm>2022-03-03T12:09:45</CreDtTm>\n\t\t\t<NbOfTxs>2</NbOfTxs>\n\t\t\t<InitgPty>\n\t\t\t\t<Nm>ООО \"Тест Альфа-Линк\"</Nm>\n\t\t\t\t<Id>\n\t\t\t\t\t<OrgId>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>7013602245</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>TXID</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>40702840100000000043</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>ACC</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t</OrgId>\n\t\t\t\t</Id>\n\t\t\t</InitgPty>\n\t\t\t<FwdgAgt>\n\t\t\t\t<FinInstnId>\n\t\t\t\t\t<BICFI>ALFARUMMXXX</BICFI>\n\t\t\t\t\t<Nm>АО \"АЛЬФА-БАНК\"</Nm>\n\t\t\t\t</FinInstnId>\n\t\t\t</FwdgAgt>\n\t\t</GrpHdr>\n\t\t<PmtInf>\n\t\t\t<PmtInfId>TEST_PMT_2022_03_02_1000053111</PmtInfId>\n\t\t\t<PmtMtd>TRF</PmtMtd>\n\t\t\t<PmtTpInf>\n\t\t\t\t<LclInstrm>\n\t\t\t\t\t<Prtry>RU-FCYRLS</Prtry>\n\t\t\t\t</LclInstrm>\n\t\t\t</PmtTpInf>\n\t\t\t<ReqdExctnDt>2022-03-03</ReqdExctnDt>\n\t\t\t<Dbtr>\n\t\t\t\t<Nm>ООО \"Тест Альфа-Линк\"</Nm>\n\t\t\t\t<PstlAdr>\n\t\t\t\t\t<AdrLine>Москва ул. Московская 1</AdrLine>\n\t\t\t\t</PstlAdr>\n\t\t\t\t<Id>\n\t\t\t\t\t<OrgId>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>7013602245</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>TXID</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>40702840100000000043</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>ACC</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t</OrgId>\n\t\t\t\t</Id>\n\t\t\t\t<CtryOfRes>RU</CtryOfRes>\n\t\t\t\t<CtctDtls>\n\t\t\t\t\t<Nm>Тестов Тест</Nm>\n\t\t\t\t\t<PhneNb>+7-(495)3763062</PhneNb>\n\t\t\t\t</CtctDtls>\n\t\t\t</Dbtr>\n\t\t\t<DbtrAcct>\n\t\t\t\t<Id>\n\t\t\t\t\t<Othr>\n\t\t\t\t\t\t<Id>40702840100000000043</Id>\n\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t<Cd>BBAN</Cd>\n\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t</Othr>\n\t\t\t\t</Id>\n\t\t\t\t<Ccy>USD</Ccy>\n\t\t\t</DbtrAcct>\n\t\t\t<DbtrAgt>\n\t\t\t\t<FinInstnId>\n\t\t\t\t\t<ClrSysMmbId>\n\t\t\t\t\t\t<ClrSysId>\n\t\t\t\t\t\t\t<Cd>RUCBC</Cd>\n\t\t\t\t\t\t</ClrSysId>\n\t\t\t\t\t\t<MmbId>044525593</MmbId>\n\t\t\t\t\t</ClrSysMmbId>\n\t\t\t\t\t<Nm>АО \"АЛЬФА-БАНК\"</Nm>\n\t\t\t\t\t<PstlAdr>\n\t\t\t\t\t\t<Ctry>RU</Ctry>\n\t\t\t\t\t</PstlAdr>\n\t\t\t\t</FinInstnId>\n\t\t\t</DbtrAgt>\n\t\t\t<DbtrAgtAcct>\n\t\t\t\t<Id>\n\t\t\t\t\t<Othr>\n\t\t\t\t\t\t<Id>30101810200000000593</Id>\n\t\t\t\t\t</Othr>\n\t\t\t\t</Id>\n\t\t\t</DbtrAgtAcct>\n\t\t\t<ChrgBr>DEBT</ChrgBr>\n\t\t\t<ChrgsAcct>\n\t\t\t\t<Id>\n\t\t\t\t\t<Othr>\n\t\t\t\t\t\t<Id>40702810200000000083</Id>\n\t\t\t\t\t</Othr>\n\t\t\t\t</Id>\n\t\t\t</ChrgsAcct>\n\t\t\t<CdtTrfTxInf>\n\t\t\t\t<PmtId>\n\t\t\t\t\t<InstrId>TEST_INSTR_2022_03_02_1000053111</InstrId>\n\t\t\t\t\t<EndToEndId>11111</EndToEndId>\n\t\t\t\t</PmtId>\n\t\t\t\t<PmtTpInf>\n\t\t\t\t\t<LclInstrm>\n\t\t\t\t\t\t<Prtry>NTF</Prtry>\n\t\t\t\t\t</LclInstrm>\n\t\t\t\t</PmtTpInf>\n\t\t\t\t<Amt>\n\t\t\t\t\t<InstdAmt Ccy=\"USD\">24915.00</InstdAmt>\n\t\t\t\t</Amt>\n\t\t\t\t<RmtInf>\n\t\t\t\t\t<Strd>\n\t\t\t\t\t\t<RfrdDocInf>\n\t\t\t\t\t\t\t<Nb>1097</Nb>\n\t\t\t\t\t\t\t<RltdDt>2022-03-03</RltdDt>\n\t\t\t\t\t\t</RfrdDocInf>\n\t\t\t\t\t\t<RfrdDocAmt>\n\t\t\t\t\t\t\t<CdtNoteAmt Ccy=\"USD\">24915.00</CdtNoteAmt>\n\t\t\t\t\t\t</RfrdDocAmt>\n\t\t\t\t\t\t<AddtlRmtInf>Двадцать четыре тысячи девятьсот пятнадцать долларов США 00 центов</AddtlRmtInf>\n\t\t\t\t\t</Strd>\n\t\t\t\t\t<Strd>\n\t\t\t\t\t\t<RfrdDocInf>\n\t\t\t\t\t\t\t<RltdDt>2022-03-03</RltdDt>\n\t\t\t\t\t\t</RfrdDocInf>\n\t\t\t\t\t</Strd>\n\t\t\t\t</RmtInf>\n\t\t\t</CdtTrfTxInf>\n\t\t\t<!--часть суммы на перевод на текущий валютный счет (меньше или равно 20% от суммы поступления)-->\n\t\t\t<CdtTrfTxInf>\n\t\t\t\t<PmtId>\n\t\t\t\t\t<InstrId>TEST_INSTRX_2022_03_02_1000053111</InstrId>\n\t\t\t\t\t<EndToEndId>11111</EndToEndId>\n\t\t\t\t</PmtId>\n\t\t\t\t<PmtTpInf>\n\t\t\t\t\t<LclInstrm>\n\t\t\t\t\t\t<Prtry>TRF</Prtry> <!--признак перевода на текущий счет-->\n\t\t\t\t\t</LclInstrm>\n\t\t\t\t</PmtTpInf>\n\t\t\t\t<Amt>\n\t\t\t\t\t<InstdAmt Ccy=\"USD\">4983.00</InstdAmt>\n\t\t\t\t</Amt>\n\t\t\t\t<CdtrAgt>\n\t\t\t\t\t<FinInstnId>\n\t\t\t\t\t\t<ClrSysMmbId>\n\t\t\t\t\t\t\t<ClrSysId>\n\t\t\t\t\t\t\t\t<Cd>RUCBC</Cd>\n\t\t\t\t\t\t\t</ClrSysId>\n\t\t\t\t\t\t\t<MmbId>044525593</MmbId>\n\t\t\t\t\t\t</ClrSysMmbId>\n\t\t\t\t\t\t<Nm>АО \"АЛЬФА-БАНК\"</Nm>\n\t\t\t\t\t\t<PstlAdr>\n\t\t\t\t\t\t\t<Ctry>RU</Ctry>\n\t\t\t\t\t\t</PstlAdr>\n\t\t\t\t\t</FinInstnId>\n\t\t\t\t</CdtrAgt>\n\t\t\t\t<CdtrAcct>\n\t\t\t\t\t<Id>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>40702840200000000529</Id>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t</Id>\n\t\t\t\t</CdtrAcct>\n\t\t\t\t<RmtInf>\n\t\t\t\t\t<Ustrd>Perevod s tranzitnogo scheta</Ustrd>\n\t\t\t\t\t<Strd>\n\t\t\t\t\t\t<RfrdDocInf>\n\t\t\t\t\t\t\t<Nb>1097</Nb>\n\t\t\t\t\t\t\t<RltdDt>2022-03-03</RltdDt>\n\t\t\t\t\t\t</RfrdDocInf>\n\t\t\t\t\t\t<AddtlRmtInf>Четыре тысячи девятьсот восемьдесят три доллара США 00 центов</AddtlRmtInf>\n\t\t\t\t\t</Strd>\n\t\t\t\t</RmtInf>\n\t\t\t</CdtTrfTxInf>\n\t\t\t<!--часть суммы на продажу (больше или равно 80% от суммы поступления)-->\n\t\t\t<CdtTrfTxInf>\n\t\t\t\t<PmtId>\n\t\t\t\t\t<InstrId>TEST_INSTRX2_2022_03_02_1000053111</InstrId>\n\t\t\t\t\t<EndToEndId>10711</EndToEndId>\n\t\t\t\t</PmtId>\n\t\t\t\t<PmtTpInf>\n\t\t\t\t\t<LclInstrm>\n\t\t\t\t\t\t<Prtry>FX</Prtry> <!--признак продажи валюты-->\n\t\t\t\t\t</LclInstrm>\n\t\t\t\t</PmtTpInf>\n\t\t\t\t<Amt>\n\t\t\t\t\t<InstdAmt Ccy=\"USD\">19932.00</InstdAmt>\n\t\t\t\t</Amt>\n\t\t\t\t<XchgRateInf>\n                    <RateTp>AGRD</RateTp> <!-- курс сделки (AGRD-курс дилера)-->\n                </XchgRateInf>\n\t\t\t\t<CdtrAgt>\n\t\t\t\t\t<FinInstnId>\n\t\t\t\t\t\t<ClrSysMmbId>\n\t\t\t\t\t\t\t<ClrSysId>\n\t\t\t\t\t\t\t\t<Cd>RUCBC</Cd>\n\t\t\t\t\t\t\t</ClrSysId>\n\t\t\t\t\t\t\t<MmbId>044525593</MmbId>\n\t\t\t\t\t\t</ClrSysMmbId>\n\t\t\t\t\t\t<Nm>АО \"АЛЬФА-БАНК\"</Nm>\n\t\t\t\t\t\t<PstlAdr>\n\t\t\t\t\t\t\t<Ctry>RU</Ctry>\n\t\t\t\t\t\t</PstlAdr>\n\t\t\t\t\t</FinInstnId>\n\t\t\t\t</CdtrAgt>\n\t\t\t\t<CdtrAcct>\n\t\t\t\t\t<Id>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>40702810200000000083</Id>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t</Id>\n\t\t\t\t</CdtrAcct>\n\t\t\t\t<RmtInf>\n\t\t\t\t\t<Ustrd>Perevod s tranzitnogo scheta</Ustrd>\n\t\t\t\t\t<Strd>\n\t\t\t\t\t\t<RfrdDocInf>\n\t\t\t\t\t\t\t<Nb>1097</Nb>\n\t\t\t\t\t\t\t<RltdDt>2022-02-25</RltdDt>\n\t\t\t\t\t\t</RfrdDocInf>\n\t\t\t\t\t\t<AddtlRmtInf>Девятнадцать тысячь девятьсот тридцать два доллара США 00 центов</AddtlRmtInf>\n\t\t\t\t\t</Strd>\n\t\t\t\t</RmtInf>\n\t\t\t</CdtTrfTxInf>\n\t\t</PmtInf>\n\t\t<SplmtryData>\n\t\t\t<Envlp>\n\t\t\t\t<SgntrSt>\n\t\t\t\t</SgntrSt>\n\t\t\t</Envlp>\n\t\t</SplmtryData>\n\t</CstmrCdtTrfInitn>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/FCYRLS",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"FCYRLS"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fcyrls [full]",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pain.001.001.06\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\t<CstmrCdtTrfInitn>\n\t\t<GrpHdr>\n\t\t\t<MsgId>TEST_MSG_2022_03_02_1000053112</MsgId>\n\t\t\t<CreDtTm>2022-03-03T12:09:45</CreDtTm>\n\t\t\t<NbOfTxs>2</NbOfTxs>\n\t\t\t<InitgPty>\n\t\t\t\t<Nm>ООО \"Тест Альфа-Линк\"</Nm>\n\t\t\t\t<Id>\n\t\t\t\t\t<OrgId>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>7013602245</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>TXID</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>40702840100000000043</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>ACC</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t</OrgId>\n\t\t\t\t</Id>\n\t\t\t</InitgPty>\n\t\t\t<FwdgAgt>\n\t\t\t\t<FinInstnId>\n\t\t\t\t\t<BICFI>ALFARUMMXXX</BICFI>\n\t\t\t\t\t<Nm>АО \"АЛЬФА-БАНК\"</Nm>\n\t\t\t\t</FinInstnId>\n\t\t\t</FwdgAgt>\n\t\t</GrpHdr>\n\t\t<PmtInf>\n\t\t\t<PmtInfId>TEST_PMT_2022_03_02_1000053112</PmtInfId>\n\t\t\t<PmtMtd>TRF</PmtMtd>\n\t\t\t<PmtTpInf>\n\t\t\t\t<LclInstrm>\n\t\t\t\t\t<Prtry>RU-FCYRLS</Prtry>\n\t\t\t\t</LclInstrm>\n\t\t\t</PmtTpInf>\n\t\t\t<ReqdExctnDt>2022-03-03</ReqdExctnDt>\n\t\t\t<Dbtr>\n\t\t\t\t<Nm>ООО \"Тест Альфа-Линк\"</Nm>\n\t\t\t\t<PstlAdr>\n\t\t\t\t\t<AdrLine>Москва ул. Московская 1</AdrLine>\n\t\t\t\t</PstlAdr>\n\t\t\t\t<Id>\n\t\t\t\t\t<OrgId>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>7013602245</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>TXID</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>40702840100000000043</Id>\n\t\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t\t<Cd>ACC</Cd>\n\t\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t</OrgId>\n\t\t\t\t</Id>\n\t\t\t\t<CtryOfRes>RU</CtryOfRes>\n\t\t\t\t<CtctDtls>\n\t\t\t\t\t<Nm>Тестов Тест</Nm>\n\t\t\t\t\t<PhneNb>+7-(495)3763062</PhneNb>\n\t\t\t\t</CtctDtls>\n\t\t\t</Dbtr>\n\t\t\t<DbtrAcct>\n\t\t\t\t<Id>\n\t\t\t\t\t<Othr>\n\t\t\t\t\t\t<Id>40702840100000000043</Id>\n\t\t\t\t\t\t<SchmeNm>\n\t\t\t\t\t\t\t<Cd>BBAN</Cd>\n\t\t\t\t\t\t</SchmeNm>\n\t\t\t\t\t</Othr>\n\t\t\t\t</Id>\n\t\t\t\t<Ccy>USD</Ccy>\n\t\t\t</DbtrAcct>\n\t\t\t<DbtrAgt>\n\t\t\t\t<FinInstnId>\n\t\t\t\t\t<ClrSysMmbId>\n\t\t\t\t\t\t<ClrSysId>\n\t\t\t\t\t\t\t<Cd>RUCBC</Cd>\n\t\t\t\t\t\t</ClrSysId>\n\t\t\t\t\t\t<MmbId>044525593</MmbId>\n\t\t\t\t\t</ClrSysMmbId>\n\t\t\t\t\t<Nm>АО \"АЛЬФА-БАНК\"</Nm>\n\t\t\t\t\t<PstlAdr>\n\t\t\t\t\t\t<Ctry>RU</Ctry>\n\t\t\t\t\t</PstlAdr>\n\t\t\t\t</FinInstnId>\n\t\t\t</DbtrAgt>\n\t\t\t<DbtrAgtAcct>\n\t\t\t\t<Id>\n\t\t\t\t\t<Othr>\n\t\t\t\t\t\t<Id>30101810200000000593</Id>\n\t\t\t\t\t</Othr>\n\t\t\t\t</Id>\n\t\t\t</DbtrAgtAcct>\n\t\t\t<ChrgBr>DEBT</ChrgBr>\n\t\t\t<ChrgsAcct>\n\t\t\t\t<Id>\n\t\t\t\t\t<Othr>\n\t\t\t\t\t\t<Id>40702810200000000083</Id>\n\t\t\t\t\t</Othr>\n\t\t\t\t</Id>\n\t\t\t</ChrgsAcct>\n\t\t\t<CdtTrfTxInf>\n\t\t\t\t<PmtId>\n\t\t\t\t\t<InstrId>TEST_INSTR_2022_03_02_1000053112</InstrId>\n\t\t\t\t\t<EndToEndId>11112</EndToEndId>\n\t\t\t\t</PmtId>\n\t\t\t\t<PmtTpInf>\n\t\t\t\t\t<LclInstrm>\n\t\t\t\t\t\t<Prtry>NTF</Prtry>\n\t\t\t\t\t</LclInstrm>\n\t\t\t\t</PmtTpInf>\n\t\t\t\t<Amt>\n\t\t\t\t\t<InstdAmt Ccy=\"USD\">24915.00</InstdAmt>\n\t\t\t\t</Amt>\n\t\t\t\t<RmtInf>\n\t\t\t\t\t<Strd>\n\t\t\t\t\t\t<RfrdDocInf>\n\t\t\t\t\t\t\t<Nb>1097</Nb>\n\t\t\t\t\t\t\t<RltdDt>2022-03-03</RltdDt>\n\t\t\t\t\t\t</RfrdDocInf>\n\t\t\t\t\t\t<RfrdDocAmt>\n\t\t\t\t\t\t\t<CdtNoteAmt Ccy=\"USD\">24915.00</CdtNoteAmt>\n\t\t\t\t\t\t</RfrdDocAmt>\n\t\t\t\t\t\t<AddtlRmtInf>Двадцать четыре тысячи девятьсот пятнадцать долларов США 00 центов</AddtlRmtInf>\n\t\t\t\t\t</Strd>\n\t\t\t\t\t<Strd>\n\t\t\t\t\t\t<RfrdDocInf>\n\t\t\t\t\t\t\t<RltdDt>2022-03-03</RltdDt>\n\t\t\t\t\t\t</RfrdDocInf>\n\t\t\t\t\t</Strd>\n\t\t\t\t</RmtInf>\n\t\t\t</CdtTrfTxInf>\n\t\t\t<!--перевод всей суммы на текущий валютный счет-->\n\t\t\t<CdtTrfTxInf>\n\t\t\t\t<PmtId>\n\t\t\t\t\t<InstrId>TEST_INSTRX_2022_03_02_1000053112</InstrId>\n\t\t\t\t\t<EndToEndId>11113</EndToEndId>\n\t\t\t\t</PmtId>\n\t\t\t\t<PmtTpInf>\n\t\t\t\t\t<LclInstrm>\n\t\t\t\t\t\t<Prtry>TRF</Prtry> <!--признак перевода на текущий счет-->\n\t\t\t\t\t</LclInstrm>\n\t\t\t\t</PmtTpInf>\n\t\t\t\t<Amt>\n\t\t\t\t\t<InstdAmt Ccy=\"USD\">24915.00</InstdAmt>\n\t\t\t\t</Amt>\n\t\t\t\t<CdtrAgt>\n\t\t\t\t\t<FinInstnId>\n\t\t\t\t\t\t<ClrSysMmbId>\n\t\t\t\t\t\t\t<ClrSysId>\n\t\t\t\t\t\t\t\t<Cd>RUCBC</Cd>\n\t\t\t\t\t\t\t</ClrSysId>\n\t\t\t\t\t\t\t<MmbId>044525593</MmbId>\n\t\t\t\t\t\t</ClrSysMmbId>\n\t\t\t\t\t\t<Nm>АО \"АЛЬФА-БАНК\"</Nm>\n\t\t\t\t\t\t<PstlAdr>\n\t\t\t\t\t\t\t<Ctry>RU</Ctry>\n\t\t\t\t\t\t</PstlAdr>\n\t\t\t\t\t</FinInstnId>\n\t\t\t\t</CdtrAgt>\n\t\t\t\t<CdtrAcct>\n\t\t\t\t\t<Id>\n\t\t\t\t\t\t<Othr>\n\t\t\t\t\t\t\t<Id>40702840200000000529</Id>\n\t\t\t\t\t\t</Othr>\n\t\t\t\t\t</Id>\n\t\t\t\t</CdtrAcct>\n\t\t\t\t<RmtInf>\n\t\t\t\t\t<Ustrd>Perevod s tranzitnogo scheta</Ustrd>\n\t\t\t\t\t<Strd>\n\t\t\t\t\t\t<RfrdDocInf>\n\t\t\t\t\t\t\t<Nb>1097</Nb>\n\t\t\t\t\t\t\t<RltdDt>2022-03-03</RltdDt>\n\t\t\t\t\t\t</RfrdDocInf>\n\t\t\t\t\t\t<AddtlRmtInf>Двадцать четыре тысячи девятьсот пятнадцать долларов США 00 центов</AddtlRmtInf>\n\t\t\t\t\t</Strd>\n\t\t\t\t</RmtInf>\n\t\t\t</CdtTrfTxInf>\n\t\t</PmtInf>\n\t\t<SplmtryData>\n\t\t\t<Envlp>\n\t\t\t\t<SgntrSt>\n\t\t\t\t</SgntrSt>\n\t\t\t</Envlp>\n\t\t</SplmtryData>\n\t</CstmrCdtTrfInitn>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/FCYRLS",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"FCYRLS"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fcyrls",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/FCYRLS/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"FCYRLS",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "statements",
+			"item": [
+				{
+					"name": "statements",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:camt.060.001.03\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\n\t<AcctRptgReq>\n\t\t<GrpHdr>\n\t\t\t<MsgId>H2H_TEST_STMT_112368042870658794832</MsgId>\n\t\t\t<CreDtTm>2021-03-18T10:00:18</CreDtTm>\n\t\t</GrpHdr>\n\t\t<RptgReq>\n\t\t\t<Id>H2H_TEST_STMT_112368042870658794832</Id>\n\t\t\t<ReqdMsgNmId>HMQSTASCF</ReqdMsgNmId>\n\t\t\t<Acct>\n\t\t\t\t<Id>\n\t\t\t\t\t<Othr>\n\t\t\t\t\t\t<Id>40702810200000000083</Id>\n\t\t\t\t\t</Othr>\n\t\t\t\t</Id>\n\t\t\t</Acct>\n\t\t\t<AcctOwnr>\n\t\t\t\t<Pty>\n\t\t\t\t\t<Nm>Общество с ограниченной ответственностью \"Тест Альфа-Линк\"</Nm>\n\t\t\t\t</Pty>\n\t\t\t</AcctOwnr>\n\t\t\t<RptgPrd>\n\t\t\t\t<FrToDt>\n\t\t\t\t\t<FrDt>2022-01-15</FrDt>\n\t\t\t\t\t<ToDt>2022-02-01</ToDt>\n\t\t\t\t</FrToDt>\n\t\t\t\t<FrToTm>\n\t\t\t\t\t<FrTm>00:00:00</FrTm>\n\t\t\t\t\t<ToTm>24:00:00</ToTm>\n\t\t\t\t</FrToTm>\n\t\t\t\t<Tp>ALLL</Tp>\n\t\t\t</RptgPrd>\n\t\t</RptgReq>\n\t\t<SplmtryData>\n\t\t\t<Envlp>\n\t\t\t\t<SgntrSt>\n                </SgntrSt>\n\t\t\t</Envlp>\n\t\t</SplmtryData>\n\t</AcctRptgReq>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Statements",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Statements"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "statements",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							},
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Statements/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Statements",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payments",
+			"item": [
+				{
+					"name": "payments",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pain.001.001.06\">\r\n\t<CstmrCdtTrfInitn>\r\n\t\t<GrpHdr>\r\n\t\t\t<MsgId>TEST_MSG_2022-02-28-141541739</MsgId>\r\n\t\t\t<CreDtTm>2021-11-03T14:10:41.727</CreDtTm>\r\n\t\t\t<NbOfTxs>1</NbOfTxs>\r\n\t\t\t<CtrlSum>100.00</CtrlSum>\r\n\t\t\t<InitgPty>\r\n\t\t\t\t<Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n\t\t\t\t<Id>\r\n\t\t\t\t\t<OrgId>\r\n\t\t\t\t\t\t<Othr>\r\n\t\t\t\t\t\t\t<Id>7013602245</Id>\r\n\t\t\t\t\t\t\t<SchmeNm>\r\n\t\t\t\t\t\t\t\t<Cd>TXID</Cd>\r\n\t\t\t\t\t\t\t</SchmeNm>\r\n\t\t\t\t\t\t</Othr>\r\n\t\t\t\t\t</OrgId>\r\n\t\t\t\t</Id>\r\n\t\t\t</InitgPty>\r\n\t\t</GrpHdr>\r\n\t\t<PmtInf>\r\n\t\t\t<PmtInfId>TEST_MSG_2022-02-28-141541739</PmtInfId>\r\n\t\t\t<PmtMtd>TRF</PmtMtd>\r\n\t\t\t<PmtTpInf>\r\n\t\t\t\t<SvcLvl>\r\n\t\t\t\t\t<Cd>NURG</Cd>\r\n\t\t\t\t</SvcLvl>\r\n\t\t\t</PmtTpInf>\r\n\t\t\t<ReqdExctnDt>2022-02-28</ReqdExctnDt>\r\n\t\t\t<Dbtr>\r\n\t\t\t\t<Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n\t\t\t\t<PstlAdr>\r\n\t\t\t\t\t<AdrLine>Москва ул. Московская 1</AdrLine>\r\n\t\t\t\t</PstlAdr>\r\n\t\t\t\t<Id>\r\n\t\t\t\t\t<OrgId>\r\n\t\t\t\t\t\t<Othr>\r\n\t\t\t\t\t\t\t<Id>7013602245</Id>\r\n\t\t\t\t\t\t\t<SchmeNm>\r\n\t\t\t\t\t\t\t\t<Cd>TXID</Cd>\r\n\t\t\t\t\t\t\t</SchmeNm>\r\n\t\t\t\t\t\t</Othr>\r\n\t\t\t\t\t</OrgId>\r\n\t\t\t\t</Id>\r\n\t\t\t</Dbtr>\r\n\t\t\t<DbtrAcct>\r\n\t\t\t\t<Id>\r\n\t\t\t\t\t<Othr>\r\n\t\t\t\t\t\t<Id>40702810200000000083</Id>\r\n\t\t\t\t\t\t<SchmeNm>\r\n\t\t\t\t\t\t\t<Cd>BBAN</Cd>\r\n\t\t\t\t\t\t</SchmeNm>\r\n\t\t\t\t\t</Othr>\r\n\t\t\t\t</Id>\r\n\t\t\t</DbtrAcct>\r\n\t\t\t<DbtrAgt>\r\n\t\t\t\t<FinInstnId>\r\n\t\t\t\t\t<ClrSysMmbId>\r\n\t\t\t\t\t\t<ClrSysId>\r\n\t\t\t\t\t\t\t<Cd>RUCBC</Cd>\r\n\t\t\t\t\t\t</ClrSysId>\r\n\t\t\t\t\t\t<MmbId>044525593</MmbId>\r\n\t\t\t\t\t</ClrSysMmbId>\r\n\t\t\t\t\t<Nm>АО АЛЬФА-БАНК</Nm>\r\n\t\t\t\t</FinInstnId>\r\n\t\t\t</DbtrAgt>\r\n\t\t\t<DbtrAgtAcct>\r\n\t\t\t\t<Id>\r\n\t\t\t\t\t<Othr>\r\n\t\t\t\t\t\t<Id>30101810200000000593</Id>\r\n\t\t\t\t\t</Othr>\r\n\t\t\t\t</Id>\r\n\t\t\t</DbtrAgtAcct>\r\n\t\t\t<CdtTrfTxInf>\r\n\t\t\t\t<PmtId>\r\n\t\t\t\t\t<InstrId>TEST_MSG_2022-02-28-141541739</InstrId>\r\n\t\t\t\t\t<EndToEndId>141549</EndToEndId>\r\n\t\t\t\t</PmtId>\r\n\t\t\t\t<Amt>\r\n\t\t\t\t\t<InstdAmt Ccy=\"RUR\">100</InstdAmt>\r\n\t\t\t\t</Amt>\r\n\t\t\t\t<ChrgBr>DEBT</ChrgBr>\r\n\t\t\t\t<CdtrAgt>\r\n\t\t\t\t\t<FinInstnId>\r\n\t\t\t\t\t\t<ClrSysMmbId>\r\n\t\t\t\t\t\t\t<ClrSysId>\r\n\t\t\t\t\t\t\t\t<Cd>RUCBC</Cd>\r\n\t\t\t\t\t\t\t</ClrSysId>\r\n\t\t\t\t\t\t\t<MmbId>044525593</MmbId>\r\n\t\t\t\t\t\t</ClrSysMmbId>\r\n\t\t\t\t\t\t<Nm>АО АЛЬФА-БАНК</Nm>\r\n\t\t\t\t\t</FinInstnId>\r\n\t\t\t\t</CdtrAgt>\r\n\t\t\t\t<CdtrAgtAcct>\r\n\t\t\t\t\t<Id>\r\n\t\t\t\t\t\t<Othr>\r\n\t\t\t\t\t\t\t<Id>30101810200000000593</Id>\r\n\t\t\t\t\t\t\t<SchmeNm>\r\n\t\t\t\t\t\t\t\t<Cd>BBAN</Cd>\r\n\t\t\t\t\t\t\t</SchmeNm>\r\n\t\t\t\t\t\t</Othr>\r\n\t\t\t\t\t</Id>\r\n\t\t\t\t</CdtrAgtAcct>\r\n\t\t\t\t<Cdtr>\r\n\t\t\t\t\t<Nm>ООО \"Тест Альфа-Линк Получатель\"</Nm>\r\n\t\t\t\t\t<PstlAdr>\r\n\t\t\t\t\t\t<Ctry>RU</Ctry>\r\n\t\t\t\t\t\t<AdrLine>г Москва ул. Московская, 1</AdrLine>\r\n\t\t\t\t\t</PstlAdr>\r\n\t\t\t\t\t<Id>\r\n\t\t\t\t\t\t<OrgId>\r\n\t\t\t\t\t\t\t<Othr>\r\n\t\t\t\t\t\t\t\t<Id>4689269939</Id>\r\n\t\t\t\t\t\t\t\t<SchmeNm>\r\n\t\t\t\t\t\t\t\t\t<Cd>TXID</Cd>\r\n\t\t\t\t\t\t\t\t</SchmeNm>\r\n\t\t\t\t\t\t\t</Othr>\r\n\t\t\t\t\t\t</OrgId>\r\n\t\t\t\t\t</Id>\r\n\t\t\t\t</Cdtr>\r\n\t\t\t\t<CdtrAcct>\r\n\t\t\t\t\t<Id>\r\n\t\t\t\t\t\t<Othr>\r\n\t\t\t\t\t\t\t<Id>40702810300000000132</Id>\r\n\t\t\t\t\t\t\t<SchmeNm>\r\n\t\t\t\t\t\t\t\t<Cd>BBAN</Cd>\r\n\t\t\t\t\t\t\t</SchmeNm>\r\n\t\t\t\t\t\t</Othr>\r\n\t\t\t\t\t</Id>\r\n\t\t\t\t</CdtrAcct>\r\n\t\t\t\t<Purp>\r\n\t\t\t\t\t<Prtry>5</Prtry>\r\n\t\t\t\t</Purp>\r\n\t\t\t\t<RgltryRptg>\r\n\t\t\t\t\t<Dtls>\r\n\t\t\t\t\t\t<Tp>PTCD</Tp>\r\n\t\t\t\t\t\t<Cd>3</Cd>\r\n\t\t\t\t\t</Dtls>\r\n\t\t\t\t</RgltryRptg>\r\n\t\t\t\t<RmtInf>\r\n\t\t\t\t\t<Ustrd>Testing</Ustrd>\r\n\t\t\t\t\t<Ustrd>H2H</Ustrd>\r\n\t\t\t\t\t<Strd>\r\n\t\t\t\t\t\t<RfrdDocInf>\r\n\t\t\t\t\t\t\t<Tp>\r\n\t\t\t\t\t\t\t\t<CdOrPrtry>\r\n\t\t\t\t\t\t\t\t\t<Prtry>POD</Prtry>\r\n\t\t\t\t\t\t\t\t</CdOrPrtry>\r\n\t\t\t\t\t\t\t</Tp>\r\n\t\t\t\t\t\t\t<RltdDt>2022-02-28</RltdDt>\r\n\t\t\t\t\t\t</RfrdDocInf>\r\n\t\t\t\t\t\t<CdtrRefInf>\r\n\t\t\t\t\t\t\t<Ref>0</Ref>\r\n\t\t\t\t\t\t</CdtrRefInf>\r\n\t\t\t\t\t\t<AddtlRmtInf>H2H clients testing</AddtlRmtInf>\r\n\t\t\t\t\t</Strd>\r\n\t\t\t\t</RmtInf>\r\n\t\t\t</CdtTrfTxInf>\r\n\t\t</PmtInf>\r\n\t\t<SplmtryData>\r\n\t\t\t<Envlp>\r\n\t\t\t\t<SgntrSt>\r\n\t\t\t\t</SgntrSt>\r\n\t\t\t</Envlp>\r\n\t\t</SplmtryData>\r\n\t</CstmrCdtTrfInitn>\r\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Payments",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payments",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Payments/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Payments",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "fx",
+			"item": [
+				{
+					"name": "fx",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:pain.001.001.06\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n    <CstmrCdtTrfInitn>\n        <GrpHdr>\n            <MsgId>TEST_MSG_2022-03-01-153156455</MsgId>\n            <CreDtTm>2022-02-16T15:31:56.455</CreDtTm>\n            <NbOfTxs>1</NbOfTxs>\n            <InitgPty>\n                <Nm>ООО \"Тест Альфа-Линк\"</Nm>\n                <Id>\n                    <OrgId>\n                        <Othr>\n                            <Id>7013602245</Id>\n                            <SchmeNm>\n                                <Cd>TXID</Cd>\n                            </SchmeNm>\n                        </Othr>\n                    </OrgId>\n                </Id>\n            </InitgPty>\n        </GrpHdr>\n        <PmtInf>\n            <PmtInfId>TEST_PCT_2022-03-01-153156455</PmtInfId>\n            <PmtMtd>TRF</PmtMtd>\n            <PmtTpInf>\n                <InstrPrty>NORM</InstrPrty>\n                <SvcLvl>\n                    <Cd>NURG</Cd>\n                </SvcLvl>\n                <LclInstrm>\n                    <Prtry>RU-FX</Prtry>\n                </LclInstrm>\n            </PmtTpInf>\n            <ReqdExctnDt>2022-03-01</ReqdExctnDt>\n            <Dbtr>\n                <Nm>ООО \"Тест Альфа-Линк\"</Nm>\n                <PstlAdr>\n                    <Ctry>RU</Ctry>\n                </PstlAdr>\n                <Id>\n                    <OrgId>\n                        <Othr>\n                            <Id>7013602245</Id>\n                            <SchmeNm>\n                                <Cd>TXID</Cd>\n                            </SchmeNm>\n                        </Othr>\n                    </OrgId>\n                </Id>\n            </Dbtr>\n            <DbtrAcct>\n                <Id>\n                    <Othr>\n                        <Id>40702810200000000083</Id>\n                        <SchmeNm>\n                            <Cd>BBAN</Cd>\n                        </SchmeNm>\n                    </Othr>\n                </Id>\n                <Ccy>RUR</Ccy>\n            </DbtrAcct>\n            <DbtrAgt>\n                <FinInstnId>\n                    <ClrSysMmbId>\n                        <ClrSysId>\n                            <Cd>RUCBC</Cd>\n                        </ClrSysId>\n                        <MmbId>044525593</MmbId>\n                    </ClrSysMmbId>\n                    <Nm>АО \"АЛЬФА-БАНК\"</Nm>\n                    <PstlAdr>\n                        <Ctry>RU</Ctry>\n                    </PstlAdr>\n                </FinInstnId>\n            </DbtrAgt>\n            <ChrgsAcct>\n                    <Id>\n                        <Othr>\n                            <Id>40702840200000000529</Id>   \n                        </Othr>\n                    </Id>                   \n            </ChrgsAcct>\n            <CdtTrfTxInf>\n                <PmtId>\n                    <InstrId>TEST_ID_2022-03-01-153156455</InstrId>\n                    <EndToEndId>153156</EndToEndId>\n                </PmtId>\n                <PmtTpInf>\n                    <SvcLvl>\n                        <Cd>NURG</Cd>\n                    </SvcLvl>\n                    <LclInstrm>\n                        <Prtry>RU-FX</Prtry>\n                    </LclInstrm>\n                </PmtTpInf>\n                <Amt>\n                    <InstdAmt Ccy=\"RUR\">100.00</InstdAmt>\n                </Amt>\n                <XchgRateInf>\n                    <RateTp>SALE</RateTp>\n                </XchgRateInf>\n                <ChrgBr>CRED</ChrgBr>\n                <CdtrAgt>\n                    <FinInstnId>\n                        <ClrSysMmbId>\n                            <ClrSysId>\n                                <Cd>RUCBC</Cd>\n                            </ClrSysId>\n                            <MmbId>044525593</MmbId>\n                        </ClrSysMmbId>\n                        <Nm>АО \"АЛЬФА-БАНК\"</Nm>\n                        <PstlAdr>\n                            <Ctry>RU</Ctry>\n                        </PstlAdr>\n                    </FinInstnId>\n                </CdtrAgt>\n                <Cdtr>\n                    <Nm>ООО \"Тест Альфа-Линк\"</Nm>\n                    <PstlAdr>\n                        <Ctry>RU</Ctry>\n                    </PstlAdr>\n                    <Id>\n                        <OrgId>\n                            <Othr>\n                                <Id>7013602245</Id>\n                                <SchmeNm>\n                                    <Cd>TXID</Cd>\n                                </SchmeNm>\n                            </Othr>\n                        </OrgId>\n                    </Id>\n                </Cdtr>\n                <CdtrAcct>\n                    <Id>\n                        <Othr>\n                            <Id>40702840200000000529</Id>\n                            <SchmeNm>\n                                <Cd>BBAN</Cd>\n                            </SchmeNm>\n                        </Othr>\n                    </Id>\n                    <Ccy>USD</Ccy>\n                </CdtrAcct>\n                <RmtInf>\n                    <Ustrd>H2H Testing</Ustrd>\n                    <Strd>\n                        <RfrdDocInf>\n                            <Tp>\n                                <CdOrPrtry>\n                                    <Prtry>POD</Prtry>\n                                </CdOrPrtry>\n                            </Tp>\n                            <RltdDt>2022-03-01</RltdDt>\n                        </RfrdDocInf>\n                    </Strd>\n                </RmtInf>\n            </CdtTrfTxInf>\n        </PmtInf>\n        <SplmtryData>\n            <Envlp>\n                <SgntrSt>\n                </SgntrSt>\n            </Envlp>\n        </SplmtryData>\n    </CstmrCdtTrfInitn>\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ForeignExchanges",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ForeignExchanges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fx",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ForeignExchanges/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ForeignExchanges",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contracts",
+			"item": [
+				{
+					"name": "contracts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.018.001.01\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n    <CtrctRegnReq>\r\n        <GrpHdr>\r\n            <MsgId>TEST_MSG_2022-03-02-123043152</MsgId>\r\n            <CreDtTm>2022-02-03T11:30:43.152</CreDtTm>\r\n            <NbOfItms>1</NbOfItms>\r\n            <InitgPty>\r\n                <Id>\r\n                    <OrgId>\r\n                        <Othr>\r\n                            <Id>7013602245</Id>\r\n                            <SchmeNm>\r\n                                <Cd>TXID</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                        <Othr>\r\n                            <Id>40702840200000000529</Id>\r\n                            <SchmeNm>\r\n                                <Cd>ACC</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                    </OrgId>\r\n                </Id>\r\n            </InitgPty>\r\n        </GrpHdr>\r\n        <CtrctRegn>\r\n            <CtrctRegnId>TEST_PCT_2022-03-02-123043152</CtrctRegnId>\r\n            <RptgPty>\r\n                <PtyId>\r\n                    <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                    <Id>\r\n                        <OrgId>\r\n                            <Othr>\r\n                                <Id>7013602245</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>TXID</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                            <Othr>\r\n                                <Id>40702840200000000529</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>ACC</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                        </OrgId>\r\n                    </Id>\r\n                </PtyId>\r\n            </RptgPty>\r\n            <RegnAgt>\r\n                <FinInstnId>\r\n                    <ClrSysMmbId>\r\n                        <ClrSysId>\r\n                            <Cd>RUCBC</Cd>\r\n                        </ClrSysId>\r\n                        <MmbId>044511111</MmbId>\r\n                    </ClrSysMmbId>\r\n                    <Nm>АО Альфа-Банк</Nm>\r\n                </FinInstnId>\r\n            </RegnAgt>\r\n            <CtrctRegnOpng>\r\n                <CtrctRegnOpngId>TEST_ID_2022-03-02-123043152</CtrctRegnOpngId>\r\n                <Prty>NORM</Prty>\r\n                <Ctrct>\r\n                    <Trad>\r\n                        <CtrctDocId>\r\n                            <Id>20211223</Id>\r\n                            <DtOfIsse>2022-02-03</DtOfIsse>\r\n                        </CtrctDocId>\r\n                        <Amt Ccy=\"USD\">10.00</Amt>\r\n                        <Buyr>\r\n                            <PtyId>\r\n                                <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                                <Id>\r\n                                    <OrgId>\r\n                                        <Othr>\r\n                                            <Id>7013602245</Id>\r\n                                            <SchmeNm>\r\n                                                <Cd>TXID</Cd>\r\n                                            </SchmeNm>\r\n                                        </Othr>\r\n                                    </OrgId>\r\n                                </Id>\r\n                                <CtryOfRes>RU</CtryOfRes>\r\n                            </PtyId>\r\n                        </Buyr>\r\n                        <Sellr>\r\n                            <PtyId>\r\n                                <Nm>Партнер 1</Nm>\r\n                                <Id>\r\n                                    <OrgId>\r\n                                        <Othr>\r\n                                            <Id>2331334086</Id>\r\n                                            <SchmeNm>\r\n                                                <Cd>TXID</Cd>\r\n                                            </SchmeNm>\r\n                                        </Othr>\r\n                                    </OrgId>\r\n                                </Id>\r\n                                <CtryOfRes>AU</CtryOfRes>\r\n                            </PtyId>\r\n                         </Sellr>\r\n                         <Sellr>\r\n                            <PtyId>\r\n                                <Nm>\"Партнер по контракту 2\"</Nm>\r\n                                <Id>\r\n                                    <OrgId>\r\n                                        <Othr>\r\n                                            <Id>9909349194</Id>\r\n                                            <SchmeNm>\r\n                                                <Cd>TXID</Cd>\r\n                                            </SchmeNm>\r\n                                        </Othr>\r\n                                    </OrgId>\r\n                                </Id>\r\n                                <CtryOfRes>PL</CtryOfRes>\r\n                            </PtyId>\r\n                        </Sellr>\r\n                        <MtrtyDt>2022-12-22</MtrtyDt>\r\n                        <PrlngtnFlg>false</PrlngtnFlg>\r\n                        <StartDt>2021-12-27</StartDt>\r\n                        <SttlmCcy>USD</SttlmCcy> \r\n                    </Trad>\r\n                </Ctrct>\r\n                <SplmtryData>\r\n                    <Envlp>\r\n                        <AdditionalData>\r\n                            <ContractType>9</ContractType>\r\n                        </AdditionalData>\r\n                    </Envlp>\r\n                </SplmtryData>\r\n            </CtrctRegnOpng>\r\n        </CtrctRegn>\r\n        <SplmtryData>\r\n            <Envlp>\r\n                <SgntrSt>\r\n                </SgntrSt>\r\n            </Envlp>\r\n        </SplmtryData>\r\n    </CtrctRegnReq>\r\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Contracts",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Contracts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contracts with attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"description": "Выбрать файл contract_with_attach.xml из папки For_attachment (предварительно в нём поменять идентификаторы на уникальные и  переподписать)",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/contract_with_attach.xml"
+								},
+								{
+									"key": "attachment",
+									"description": "Выбрать файл test.pdf из папки For_attachment",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/test.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Contracts",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Contracts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contracts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/Contracts/TEST_MSG_2022-06-09-123043152",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Contracts",
+								"TEST_MSG_2022-06-09-123043152"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get contracts' attach list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://grampus-int.moscow.alfaintra.net/API/v1/ISO20022/Contracts/Files/TEST_ID_2022-06-09-123043152",
+							"protocol": "http",
+							"host": [
+								"grampus-int",
+								"moscow",
+								"alfaintra",
+								"net"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Contracts",
+								"Files",
+								"TEST_ID_2022-06-09-123043152"
+							],
+							"query": [
+								{
+									"key": "MsgId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get contracts' attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://grampus-int.moscow.alfaintra.net/API/v1/ISO20022/Contracts/Files/TEST_ID_2022-06-09-123043152/109148",
+							"protocol": "http",
+							"host": [
+								"grampus-int",
+								"moscow",
+								"alfaintra",
+								"net"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"Contracts",
+								"Files",
+								"TEST_ID_2022-06-09-123043152",
+								"109148"
+							],
+							"query": [
+								{
+									"key": "MsgId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cocertificates",
+			"item": [
+				{
+					"name": "cocertificates",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.024.001.01\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n    <PmtRgltryInfNtfctn>\r\n        <GrpHdr>\r\n            <MsgId>TEST_MSG_2022-03-02-154345504</MsgId>\r\n            <CreDtTm>2022-03-02T15:43:45.504</CreDtTm>\r\n            <NbOfItms>1</NbOfItms>\r\n            <InitgPty>\r\n                <Pty>\r\n                    <Id>\r\n                        <OrgId>\r\n                            <Othr>\r\n                                <Id>7013602245</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>TXID</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                        <Othr>\r\n                            <Id>40702810200000000083</Id>\r\n                            <SchmeNm>\r\n                                <Cd>ACC</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                        </OrgId>\r\n                    </Id>\r\n                </Pty>\r\n            </InitgPty>\r\n        </GrpHdr>\r\n        <TxNtfctn>\r\n            <TxNtfctnId>TEST_PCT_2022-03-02-154345504</TxNtfctnId>\r\n            <AcctOwnr>\r\n                <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                <Id>\r\n                    <OrgId>\r\n                        <Othr>\r\n                            <Id>7013602245</Id>\r\n                            <SchmeNm>\r\n                                <Cd>TXID</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                    </OrgId>\r\n                </Id>\r\n            </AcctOwnr>\r\n            <AcctSvcr>\r\n                <FinInstnId>\r\n                    <ClrSysMmbId>\r\n                        <ClrSysId>\r\n                            <Cd>RUCBC</Cd>\r\n                        </ClrSysId>\r\n                        <MmbId>044525593</MmbId>\r\n                    </ClrSysMmbId>\r\n                </FinInstnId>\r\n            </AcctSvcr>\r\n            <TxCert>\r\n                <TxId>TEST_TXID_2022-03-02-154345504</TxId>\r\n                <Cert>\r\n                    <Id>011350</Id>\r\n                    <DtOfIsse>2022-01-13</DtOfIsse>\r\n                </Cert>\r\n                <Acct>\r\n                    <Id>\r\n                        <Othr>\r\n                            <Id>40702810200000000083</Id>\r\n                        </Othr>\r\n                    </Id>\r\n                </Acct>\r\n                <CertRcrd>\r\n                    <CertRcrdId>TEST_CERT_RCRD_2022-03-02-15434550</CertRcrdId>\r\n                    <Tx>\r\n                        <RfrdDoc>\r\n                            <Id><PmtInfId>TEST_PMT_INF_2022-03-02-154345504</PmtInfId></Id>\r\n                            <Dt>2022-03-02</Dt>\r\n                        </RfrdDoc>\r\n                        <TxDt>2022-03-02</TxDt>\r\n                        <TxTp>2</TxTp>\r\n                        <LclInstrm>61135</LclInstrm>\r\n                        <Amt Ccy=\"USD\">100.00</Amt>\r\n                    </Tx>\r\n                    <Ctrct>\r\n                        <CtrctRef>\r\n                            <Ctrct>\r\n                                <Id>МТ0000010</Id>\r\n                                <DtOfIsse>2017-05-18</DtOfIsse>\r\n                            </Ctrct>\r\n                        </CtrctRef>\r\n                        <AddtlInf>H2H Testing</AddtlInf>\r\n                    </Ctrct> \r\n                </CertRcrd>\r\n            </TxCert>\r\n        </TxNtfctn>\r\n        <SplmtryData>\r\n            <Envlp>\r\n                <SgntrSt>\r\n                </SgntrSt>\r\n            </Envlp>\r\n        </SplmtryData>\r\n    </PmtRgltryInfNtfctn>\r\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/COCertificates",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"COCertificates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cocertificates with attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"description": "Выбрать файл coc_with_attach.xml из папки For_attachment (предварительно в нём поменять идентификаторы на уникальные и  переподписать)",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/coc_with_attach.xml"
+								},
+								{
+									"key": "attachment",
+									"description": "Выбрать файл test.pdf из папки For_attachment",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/test.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/COCertificates",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"COCertificates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cocertificates",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/COCertificates/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"COCertificates",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cocertificates' attach list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://grampus-int.moscow.alfaintra.net/API/v1/ISO20022/COCertificates/Transactions/Files/TEST_TXID_2022-06-09-154345504",
+							"protocol": "http",
+							"host": [
+								"grampus-int",
+								"moscow",
+								"alfaintra",
+								"net"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"COCertificates",
+								"Transactions",
+								"Files",
+								"TEST_TXID_2022-06-09-154345504"
+							],
+							"query": [
+								{
+									"key": "MsgId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cocertificates' attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://grampus-int.moscow.alfaintra.net/API/v1/ISO20022/COCertificates/Transactions/Files/TEST_TXID_2022-06-09-154345504/109142",
+							"protocol": "http",
+							"host": [
+								"grampus-int",
+								"moscow",
+								"alfaintra",
+								"net"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"COCertificates",
+								"Transactions",
+								"Files",
+								"TEST_TXID_2022-06-09-154345504",
+								"109142"
+							],
+							"query": [
+								{
+									"key": "MsgId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "confcertificates",
+			"item": [
+				{
+					"name": "confcertificates",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document xmlns=\"urn:iso:std:iso:20022:tech:xsd:auth.025.001.01\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n    <CcyCtrlSpprtgDocDlvry>\r\n        <GrpHdr>\r\n            <MsgId>TEST_MSG_2022-03-02-101721575</MsgId>\r\n            <CreDtTm>2022-01-19T10:17:21.573</CreDtTm>\r\n            <NbOfItms>1</NbOfItms>\r\n            <InitgPty>\r\n                <Pty>\r\n                    <Id>\r\n                        <OrgId>\r\n                            <Othr>\r\n                                <Id>7013602245</Id>\r\n                                <SchmeNm>\r\n                                    <Cd>TXID</Cd>\r\n                                </SchmeNm>\r\n                            </Othr>\r\n                        <Othr>\r\n                            <Id>40702810200000000083</Id>\r\n                            <SchmeNm>\r\n                                <Cd>ACC</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                        </OrgId>\r\n                    </Id>\r\n                </Pty>\r\n            </InitgPty>\r\n        </GrpHdr>\r\n        <SpprtgDoc>\r\n            <SpprtgDocId>TEST_SPPRTG_2022-03-02-101721575</SpprtgDocId>\r\n            <Cert>\r\n                <Id>TEST_ID_2022-03-02-101721575</Id>\r\n                <DtOfIsse>2022-01-19</DtOfIsse>\r\n            </Cert>\r\n            <AcctOwnr>\r\n                <Nm>ООО \"Тест Альфа-Линк\"</Nm>\r\n                <Id>\r\n                    <OrgId>\r\n                        <Othr>\r\n                            <Id>7013602245</Id>\r\n                            <SchmeNm>\r\n                                <Cd>TXID</Cd>\r\n                            </SchmeNm>\r\n                        </Othr>\r\n                    </OrgId>\r\n                </Id>\r\n            </AcctOwnr>\r\n            <AcctSvcr>\r\n                <FinInstnId>\r\n                    <ClrSysMmbId>\r\n                        <ClrSysId>\r\n                            <Cd>RUCBC</Cd>\r\n                        </ClrSysId>\r\n                        <MmbId>044525593</MmbId>\r\n                    </ClrSysMmbId>\r\n                </FinInstnId>\r\n            </AcctSvcr>\r\n            <CtrctRef>\r\n                <RegdCtrctId>22010012/1326/0000/1/1</RegdCtrctId>\r\n            </CtrctRef>\r\n            <Ntry>\r\n                <NtryId>TEST_NTRY_2022-03-02-101721575</NtryId>\r\n                <OrgnlDoc>\r\n                    <Id>20220118</Id>\r\n                    <DtOfIsse>2022-01-20</DtOfIsse>\r\n                </OrgnlDoc>\r\n                <DocTp>0023</DocTp>\r\n                <TtlAmt Ccy=\"RUR\">100.00</TtlAmt>\r\n                <ShipmntAttrbts>\r\n                    <Conds>\r\n                        <Prtry>3</Prtry>\r\n                    </Conds>\r\n                    <CtryOfCntrPty>AU</CtryOfCntrPty>\r\n                </ShipmntAttrbts>\r\n                <AddtlInf>H2H Testing</AddtlInf> \r\n            </Ntry>\r\n        </SpprtgDoc>\r\n        <SplmtryData>\r\n            <Envlp>\r\n                <SgntrSt>\r\n                </SgntrSt>\r\n            </Envlp>\r\n        </SplmtryData>\r\n    </CcyCtrlSpprtgDocDlvry>\r\n</Document>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ConfCertificates",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ConfCertificates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confcertificates with attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sign",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"description": "Выбрать файл conf_with_attach.xml из папки For_attachment (предварительно в нём поменять идентификаторы на уникальные и  переподписать",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/conf_with_attach.xml"
+								},
+								{
+									"key": "attachment",
+									"description": "Выбрать файл test.pdf из папки For_attachment",
+									"type": "file",
+									"src": "/Users/artem/IdeaProjects/user-guide/build/asciidoc/html5/Postman_collection/For_attachment/test.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ConfCertificates",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ConfCertificates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confcertificates",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grampus-int.alfabank.ru/API/v1/ISO20022/ConfCertificates/<MSG_ID>",
+							"protocol": "https",
+							"host": [
+								"grampus-int",
+								"alfabank",
+								"ru"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ConfCertificates",
+								"<MSG_ID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get confcertificates' attach list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://grampus-int.moscow.alfaintra.net/API/v1/ISO20022/ConfCertificates/Transactions/Files/TEST_SPPRTG_2022-06-09-101721575",
+							"protocol": "http",
+							"host": [
+								"grampus-int",
+								"moscow",
+								"alfaintra",
+								"net"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ConfCertificates",
+								"Transactions",
+								"Files",
+								"TEST_SPPRTG_2022-06-09-101721575"
+							],
+							"query": [
+								{
+									"key": "MsgId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get confcertificates' attach",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "643223",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://grampus-int.moscow.alfaintra.net/API/v1/ISO20022/ConfCertificates/Transactions/Files/TEST_SPPRTG_2022-06-09-101721575/109146",
+							"protocol": "http",
+							"host": [
+								"grampus-int",
+								"moscow",
+								"alfaintra",
+								"net"
+							],
+							"path": [
+								"API",
+								"v1",
+								"ISO20022",
+								"ConfCertificates",
+								"Transactions",
+								"Files",
+								"TEST_SPPRTG_2022-06-09-101721575",
+								"109146"
+							],
+							"query": [
+								{
+									"key": "MsgId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
