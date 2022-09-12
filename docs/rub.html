@@ -599,7 +599,7 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Дата и Время создания сообщения</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Document.CstmrCdtTrfInitn.GrpHdr.<strong>CreDtTm</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (Обязательно указание часового пояса Москвы. В случае, если часовой пояс не указан, то время будет восприниматься по UTC).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Формат даты YYYY-MM-DDThh:mm:ss[.mmm]TZD (В случае, если часовой пояс не указан или указан отличный от московского, то время будет приведено к UTC +3).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
@@ -734,17 +734,10 @@ NURG - обычный платеж</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">О</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Код платежа (22)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CdtTrfTxInf.RmtInf.Strd.CdtrRefInf.<strong>Ref</strong></p></td>
 <td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Назначение платежа (24)<br>
-Поле формируется на стороне системы Альфа-Линк из нескольких тегов по следующему алгоритму:<br>
-['{'+ Признак валютной операции + Код валютной операции + '}'] + [Информация получателю] + [Информация о НДС]<br>
-Допускается заполнить только поле "Информация получателю" со всей необходимой информацией.<br>
-Общая длина поля (24) не должна превышать 210 символов.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
@@ -770,9 +763,9 @@ NURG - обычный платеж</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Информация получателю</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Назначение платежа (24)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CdtTrfTxInf.RmtInf.<strong>Ustrd[1..2]</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Количество полей Ustrd неограниченно, но длина каждого не должна превышать 140 символов. Общая длина поля (24) не должна превышать 210 символов</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
@@ -800,7 +793,7 @@ VTPS - Не включая НДС;<br>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">О</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Наименование плательщика (8)*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Dbtr.CtctDtls.<strong>Nm</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Заполняется в случае, если наименование плательщика больше 140 символов.</p></td>
@@ -877,10 +870,10 @@ VTPS - Не включая НДС;<br>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Наименование получателя (16)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">О</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Наименование получателя (16)*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CdtTrfTxInf.Cdtr.CtctDtls.<strong>Nm</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Заполняется в случае, если наименование получателя больше 140 символов.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">26</p></td>
@@ -1178,31 +1171,19 @@ RegnId - PmtInf.CdtTrfTxInf.Tax.Cdtr.RegnId - код налогового орг
 <td class="tableblock halign-left valign-top"><p class="tableblock">Пользователь не найден</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User is disabled</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Пользователь заблокирован</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warrant is expired</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность истекла</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Warrant was not found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность не найдена</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Warrant service error</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Сервис проверки доверенности не отвечает</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">406</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User does not have permission</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Нет прав на выполнения операции</p></td>
@@ -1214,15 +1195,45 @@ RegnId - PmtInf.CdtTrfTxInf.Tax.Cdtr.RegnId - код налогового орг
 <td class="tableblock halign-left valign-top"><p class="tableblock">Нет подписи</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">406</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Certificate is not valid</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Сертификат подписи невалидный</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signer&#8217;s warrant is expired</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность подписанта истекла</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signer&#8217;s warrant is disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Доверенность подписанта заблокирована</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of signatures is not enough for this operation type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Недостаточно подписей для типа операции</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Certificate is disabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сертификат заблокирован</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The signer certificate is not valid (revoked or not active)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Сертификат подписанта отозван или невалидный</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">406</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Signature is not valid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signature value is not valid</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Подпись невалидна</p></td>
 </tr>
 <tr>
@@ -1256,7 +1267,7 @@ RegnId - PmtInf.CdtTrfTxInf.Tax.Cdtr.RegnId - код налогового орг
 <td class="tableblock halign-left valign-top"><p class="tableblock">Внутренняя ошибка приложения</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">409</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Err</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MsgId is not unique</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Id запроса неуникальный</p></td>
@@ -1703,13 +1714,25 @@ RegnId - PmtInf.CdtTrfTxInf.Tax.Cdtr.RegnId - код налогового орг
 </div>
 </div>
 </details>
+<details>
+<summary><b>Пример платежного поручения с полями ISO</b></summary>
+<div class="sidebarblock">
+<div class="content">
+<div class="imageblock">
+<div class="content">
+<img src="images/images/платежное_поручение.png" alt="Изображения отображаются только при открытии документации из папки после разархивации архива">
+</div>
+</div>
+</div>
+</div>
+</details>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-14 14:11:46 +0300
+Last updated 2022-09-01 15:09:40 +0300
 </div>
 </div>
 </body>
